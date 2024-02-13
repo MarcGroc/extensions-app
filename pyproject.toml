@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "django-vue-template"
+version = "0.1.0"
+description = ""
+authors = ["MarcGroc <marcgroc12@gmail.com>"]
+readme = "README.md"
+packages = [{include = "django_vue_template"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^5.0.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
