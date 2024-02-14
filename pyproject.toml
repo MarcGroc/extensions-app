@@ -4,13 +4,48 @@ version = "0.1.0"
 description = ""
 authors = ["MarcGroc <marcgroc12@gmail.com>"]
 readme = "README.md"
-packages = [{include = "django_vue_template"}]
-
-[tool.poetry.dependencies]
-python = "^3.11"
-django = "^5.0.2"
-
-
+packages = [{include = "backend"}]
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+# Basic dependencies used by all environments
+[tool.poetry.dependencies]
+python = "^3.11"
+celery = "^5.3.6"
+flower = "^2.0.1"
+redis = "^5.0.1"
+drf-spectacular = "^0.27.1"
+uvicorn = {extras = ["standard"], version = "^0.27.1"}
+
+#Django dependencies
+django = "4.2.10"
+djangorestframework = "^3.14.0"
+environ = "^1.0"
+django-environ = "^0.11.2"
+django-celery-beat = "2.5.0"
+django-allauth = "0.61.0"
+django-redis = "^5.4.0"
+django-cors-headers = "^4.3.1"
+
+
+[tool.poetry.group.dev.dependencies]
+# Development dependencies for development and testing
+pytest = "^8.0.0"
+django-debug-toolbar = "^4.3.0"
+django-extensions = "^3.2.3"
+mypy = "^1.8.0"
+pytest-sugar = "^1.0.0"
+psycopg2 = {extras = ["c"], version = "^2.9.9"}
+psycopg2-binary = "^2.9.9"
+flake8 = "^7.0.0"
+flake8-isort = "^6.1.1"
+black = "^24.2.0"
+pre-commit = "^3.6.1"
+pytest-django = "^4.8.0"
+factory-boy = "^3.3.0"
+
+[tool.poetry.group.prod.dependencies]
+# Production dependencies
+django-storages = "^1.14.2"
+
