@@ -1,6 +1,7 @@
 """
 Base setting to use in other settings files.
 """
+
 from pathlib import Path
 
 import environ
@@ -10,9 +11,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 env = environ.Env()
 
 # Check if  production or development and read .env
-IS_PRODUCTION = env.bool("IS_PRODUCTION", default=False)
-if IS_PRODUCTION:
-    env.read_env(str(BASE_DIR / ".envs/.env.prod"))
+# IS_PRODUCTION = env.bool("IS_PRODUCTION", default=False)
+# if IS_PRODUCTION:
+env.read_env(str(BASE_DIR / ".env/.env.dev"))
+# env.read_env(str(BASE_DIR / ".env/.env.dev"))
 
 # GENERAL SETTINGS
 
@@ -45,6 +47,7 @@ THIRD_PARTY_APPS = [
     "django_celery_beat",
     "corsheaders",  # noqa
     "drf_spectacular",
+    "axes",
 ]
 LOCAL_APPS = [
     "backend.users",
@@ -59,11 +62,12 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 # URLS SETTINGS
-ROOT_URLCONF = "backend.config.urls"
+ROOT_URLCONF = "config.urls"
 WSGI_APPLICATION = "config.wsgi.application"
 
 # AUTHENTICATION SETTINGS
 AUTHENTICATION_BACKENDS = [
+    "axes.backends.AxesStandaloneBackend",
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
@@ -100,6 +104,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
+    "axes.middleware.AxesMiddleware",
 ]
 
 
@@ -193,21 +198,20 @@ LOGGING = {
 }
 
 # CELERY SETTINGS
-# CELERY_TIMEZONE = TIME_ZONE
-# CELERY_BROKER_URL = env("CELERY_BROKER_URL")
-# CELERY_RESULT_BACKEND = env("CELERY_RESULT_BACKEND")
-# CELERY_RESULT_EXTENDED = True
-# # Retry if failed
-# CELERY_RESULT_BACKEND_ALWAYS_RETRY = True
-# CELERY_RESULT_BACKEND_MAX_RETRIES = 10
-# # Task time limit, set to desired value in seconds
-# CELERY_TASK_TIME_LIMIT = 60
-# CELERY_TASK_SOFT_TIME_LIMIT = 60
-#
-# CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
-# # Enable worker send task events to monitoring
-# CELERY_WORKER_SEND_TASK_EVENTS = True
-# CELERY_TASK_SEND_SENT_EVENT = True
+CELERY_TIMEZONE = TIME_ZONE
+
+CELERY_RESULT_EXTENDED = True
+# Retry if failed
+CELERY_RESULT_BACKEND_ALWAYS_RETRY = True
+CELERY_RESULT_BACKEND_MAX_RETRIES = 10
+# Task time limit, set to desired value in seconds
+CELERY_TASK_TIME_LIMIT = 60
+CELERY_TASK_SOFT_TIME_LIMIT = 60
+
+CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
+# Enable worker send task events to monitoring
+CELERY_WORKER_SEND_TASK_EVENTS = True
+CELERY_TASK_SEND_SENT_EVENT = True
 
 # ALLAUTH SETTINGS
 ACCOUNT_ALLOW_REGISTRATION = env.bool("ALLOW_REGISTRATION", True)

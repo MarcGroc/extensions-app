@@ -1,0 +1,12 @@
+#!/bin/sh
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+python manage.py migrate --noinput
+python manage.py makemigrations --noinput
+#python manage.py check_db
+#python manage.py load_fixtures
+#python manage.py collectstatic --noinput
+gunicorn -c config/gunicorn/gunicorn_dev_config.py config.wsgi:application

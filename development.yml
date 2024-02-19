@@ -1,0 +1,115 @@
+version: '3.8'
+
+
+services:
+  django:
+    build:
+      context: .
+      dockerfile: ./compose/development/Dockerfile
+    image: dev-django
+    container_name: dev-django
+    hostname: django
+    depends_on:
+      - db
+      - redis
+      - mailpit
+    volumes:
+      - .:/app
+    env_file:
+      - .env/.env.dev
+    ports:
+      - '8000:8000'
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 5
+        window: 120s
+
+  db:
+    image: postgres
+    container_name: dev-db
+    hostname: db
+    environment:
+      POSTGRES_DB: dev-db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - dev-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    hostname: redis
+    ports:
+      - '6379:6379'
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mailpit:
+    image: axllent/mailpit
+    container_name: dev-mailpit
+    hostname: mailpit
+    ports:
+      - '8025:8025'
+
+  celery-worker:
+    build:
+      context: .
+      dockerfile: ./compose/development/Dockerfile
+    image: celery-worker
+    container_name: dev-celery-worker
+    hostname: celery-worker
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+      - db
+    env_file:
+      - .env/.env.dev
+    command: ["/bin/sh", "/app/compose/development/worker/start"]
+
+  celery-beat:
+    build:
+      context: .
+      dockerfile: ./compose/development/Dockerfile
+    image: celery-beat
+    container_name: dev-celery-beat
+    hostname: celery-beat
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+      - db
+    env_file:
+      - .env/.env.dev
+    command: ["/bin/sh", "/app/compose/development/beat/start"]
+
+  flower:
+    build:
+      context: .
+      dockerfile: ./compose/development/Dockerfile
+    image: flower
+    container_name: dev-flower
+    hostname: flower
+    volumes:
+      - .:/app
+    ports:
+      - '5555:5555'
+    depends_on:
+      - redis
+    env_file:
+      - .env/.env.dev
+    command: ["/bin/sh", "/app/compose/development/flower/start"]
+
+volumes:
+  dev-db:
