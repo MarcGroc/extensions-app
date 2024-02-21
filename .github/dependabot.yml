@@ -1,0 +1,19 @@
+  version: 2
+  updates:
+    - package-ecosystem: pip
+      # Pip updates
+      directory: "/"
+      schedule:
+        interval: weekly
+
+    - package-ecosystem: github-actions
+      # GitHub Actions workflows updates
+      directory: "/"
+      schedule:
+        interval: weekly
+
+    - package-ecosystem: docker
+      # Dockerfile updates, need to specify for each dockerfile
+      directory: "/compose/development/"
+      schedule:
+        interval: weekly

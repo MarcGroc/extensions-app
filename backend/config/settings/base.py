@@ -1,18 +1,20 @@
 """
 Base setting to use in other settings files.
 """
+
 from pathlib import Path
 
 import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
 env = environ.Env()
 
 # Check if  production or development and read .env
-IS_PRODUCTION = env.bool("IS_PRODUCTION", default=False)
-if IS_PRODUCTION:
-    env.read_env(str(BASE_DIR / ".envs/.env.prod"))
+# IS_PRODUCTION = env.bool("IS_PRODUCTION", default=False)
+# if IS_PRODUCTION:
+env.read_env(str(BASE_DIR / ".env/.env.dev"))
+# env.read_env(str(BASE_DIR / ".env/.env.dev"))
 
 # GENERAL SETTINGS
 
@@ -36,6 +38,7 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.sites",
     "django.forms",
+    "users",
 ]
 THIRD_PARTY_APPS = [
     "rest_framework",
@@ -45,11 +48,11 @@ THIRD_PARTY_APPS = [
     "django_celery_beat",
     "corsheaders",  # noqa
     "drf_spectacular",
+    "axes",
+    "loguru",
 ]
-LOCAL_APPS = [
-    "backend.users",
-]
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS
 
 # DATABASE SETTINGS
 
@@ -59,18 +62,19 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 # URLS SETTINGS
-ROOT_URLCONF = "backend.config.urls"
+ROOT_URLCONF = "config.urls"
 WSGI_APPLICATION = "config.wsgi.application"
 
 # AUTHENTICATION SETTINGS
 AUTHENTICATION_BACKENDS = [
+    "axes.backends.AxesStandaloneBackend",
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
 # Can be set only once during first migration
 AUTH_USER_MODEL = "users.User"
 LOGIN_REDIRECT_URL = "users:redirect"
-LOGIN_URL = "login"
+LOGIN_URL = "/accounts/login/"
 
 # Password validation, prevents users from using "weak" passwords
 AUTH_PASSWORD_VALIDATORS = [
@@ -100,6 +104,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
+    "axes.middleware.AxesMiddleware",
 ]
 
 
@@ -137,82 +142,50 @@ TEMPLATES = [
 FIXTURE_DIRS = (str(BASE_DIR / "fixtures"),)
 
 # EMAIL SETTINGS
-EMAIL_BACKEND = env("EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend")
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 EMAIL_TIMEOUT = 5
 
-# LOGGING
+# LOGGING SETTINGS
+# Logging is handled by loguru
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-    "formatters": {
-        "verbose": {
-            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
-            "style": "{",
-        },
-        "simple": {
-            "format": "{levelname} {module} {message}",
-            "style": "{",
-        },
-    },
     "handlers": {
-        "debug_file": {
+        "default": {
             "level": "DEBUG",
-            "class": "logging.FileHandler",
-            "filename": "debug.log",
-            "formatter": "verbose",
-        },
-        "console": {
-            "level": "INFO",
-            "class": "logging.StreamHandler",
-            "formatter": "simple",
-        },
-        "error_file": {
-            "level": "ERROR",
-            "class": "logging.FileHandler",
-            "filename": "errors.log",
-            "formatter": "verbose",
+            "class": "backend.config.loguru_config.InterceptHandler",
         },
     },
     "loggers": {
-        # 'django.': {
-        #     'handlers': ['file', 'console'],
-        #     'level': 'DEBUG',
-        #     'propagate': True,
-        # },
-        "django.request": {
-            "handlers": ["error_file", "console"],
-            "level": "ERROR",
-            "propagate": False,
+        "": {
+            "handlers": ["default"],
+            "level": "DEBUG",
+            "propagate": True,
         },
-        # 'backend': {
-        #     'handlers': ['file', 'console'],
-        #     'level': 'DEBUG',
-        #     'propagate': False,
-        # },
     },
 }
 
 # CELERY SETTINGS
-# CELERY_TIMEZONE = TIME_ZONE
-# CELERY_BROKER_URL = env("CELERY_BROKER_URL")
-# CELERY_RESULT_BACKEND = env("CELERY_RESULT_BACKEND")
-# CELERY_RESULT_EXTENDED = True
-# # Retry if failed
-# CELERY_RESULT_BACKEND_ALWAYS_RETRY = True
-# CELERY_RESULT_BACKEND_MAX_RETRIES = 10
-# # Task time limit, set to desired value in seconds
-# CELERY_TASK_TIME_LIMIT = 60
-# CELERY_TASK_SOFT_TIME_LIMIT = 60
-#
-# CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
-# # Enable worker send task events to monitoring
-# CELERY_WORKER_SEND_TASK_EVENTS = True
-# CELERY_TASK_SEND_SENT_EVENT = True
+CELERY_TIMEZONE = TIME_ZONE
+
+CELERY_RESULT_EXTENDED = True
+# Retry if failed
+CELERY_RESULT_BACKEND_ALWAYS_RETRY = True
+CELERY_RESULT_BACKEND_MAX_RETRIES = 10
+# Task time limit, set to desired value in seconds
+CELERY_TASK_TIME_LIMIT = 60
+CELERY_TASK_SOFT_TIME_LIMIT = 60
+
+CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
+# Enable worker send task events to monitoring
+CELERY_WORKER_SEND_TASK_EVENTS = True
+CELERY_TASK_SEND_SENT_EVENT = True
 
 # ALLAUTH SETTINGS
 ACCOUNT_ALLOW_REGISTRATION = env.bool("ALLOW_REGISTRATION", True)
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_AUTHENTICATION_METHOD = "username"
 
 # DRF SETTINGS
 REST_FRAMEWORK = {
