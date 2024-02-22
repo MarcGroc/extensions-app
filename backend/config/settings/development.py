@@ -16,7 +16,7 @@ MANAGERS = ADMINS
 # DATABASES SETTINGS
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
+        "ENGINE": "django_prometheus.db.backends.postgresql",
         "NAME": env("NAME"),
         "USER": env("USER"),
         "PASSWORD": env("PASSWORD"),
@@ -32,7 +32,7 @@ DELAY_BETWEEN_ATTEMPTS = 5
 # CACHES SETTINGS
 CACHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "BACKEND": "django_prometheus.cache.backends.locmem.LocMemCache",
         "LOCATION": "",
     }
 }

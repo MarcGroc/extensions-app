@@ -10,5 +10,6 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     path("accounts/", include("django.contrib.auth.urls")),
     path(ADMIN_URL, admin.site.urls),
+    path("prometheus/", include("django_prometheus.urls")),
     path("users/", include("users.urls", namespace="users")),
 ]

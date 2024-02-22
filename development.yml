@@ -19,12 +19,12 @@ services:
       - .env/.env.dev
     ports:
       - '8000:8000'
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 10s
-        max_attempts: 5
-        window: 120s
+#    deploy:
+#      restart_policy:
+#        condition: on-failure
+#        delay: 10s
+##        max_attempts: 5
+#        window: 120s
 
   db:
     image: postgres
@@ -57,7 +57,7 @@ services:
 
   mailpit:
     image: axllent/mailpit
-    container_name: dev-mailpit
+    container_name: mailpit
     hostname: mailpit
     ports:
       - '8025:8025'
@@ -67,7 +67,7 @@ services:
       context: .
       dockerfile: ./compose/development/Dockerfile
     image: celery-worker
-    container_name: dev-celery-worker
+    container_name: celery-worker
     hostname: celery-worker
     volumes:
       - .:/app
@@ -83,7 +83,7 @@ services:
       context: .
       dockerfile: ./compose/development/Dockerfile
     image: celery-beat
-    container_name: dev-celery-beat
+    container_name: celery-beat
     hostname: celery-beat
     volumes:
       - .:/app
@@ -110,6 +110,24 @@ services:
     env_file:
       - .env/.env.dev
     command: ["/bin/sh", "/app/compose/development/flower/start"]
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    hostname: prometheus
+    ports:
+      - '9090:9090'
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    hostname: grafana
+    ports:
+      - '3000:3000'
 
 volumes:
   dev-db:

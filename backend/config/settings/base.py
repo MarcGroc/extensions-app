@@ -50,6 +50,7 @@ THIRD_PARTY_APPS = [
     "drf_spectacular",
     "axes",
     "loguru",
+    "django_prometheus",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS
@@ -95,6 +96,7 @@ PASSWORD_HASHERS = [
 
 # MIDDLEWARE
 MIDDLEWARE = [
+    "django_prometheus.middleware.PrometheusBeforeMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -105,6 +107,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
     "axes.middleware.AxesMiddleware",
+    "django_prometheus.middleware.PrometheusAfterMiddleware",
 ]
 
 
@@ -201,8 +204,31 @@ REST_FRAMEWORK = {
 CORS_URLS_REGEX = r"^/api/.*$"
 
 SPECTACULAR_SETTINGS = {
-    "TITLE": "django-cutter API",
-    "DESCRIPTION": "Documentation of API endpoints of django-cutter",
+    "TITLE": "Django-Vue API",
+    "DESCRIPTION": "Documentation of API endpoints of django-vue",
     "VERSION": "1.0.0",
     "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAdminUser"],
 }
+
+# MONITORING SETTINGS
+# PROMETHEUS SETTINGS
+PROMETHEUS_LATENCY_BUCKETS = (
+    0.01,
+    0.025,
+    0.05,
+    0.075,
+    0.1,
+    0.25,
+    0.5,
+    0.75,
+    1.0,
+    2.5,
+    5.0,
+    7.5,
+    10.0,
+    25.0,
+    50.0,
+    75.0,
+    float("inf"),
+)
+PROMETHEUS_EXPORT_MIGRATIONS = True
