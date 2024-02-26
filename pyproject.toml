@@ -60,9 +60,13 @@ django-storages = "^1.14.2"
 
 
 # Tools configuration
+[tool.pytest.ini_options]
+addopts = "--ds=config.settings.test --reuse-db"
+python_files = "test_*.py"
 
 [tool.bandit]
-target = ["backend", "tests"]
+#target = ["backend"]
+exclude_dirs = ['*/tests/']
 
 
 [tool.ruff]

@@ -6,9 +6,9 @@ from django_prometheus.models import ExportModelOperationsMixin
 
 
 class User(ExportModelOperationsMixin("user"), AbstractUser):
-    name = CharField(_("Name of User"), blank=True, max_length=255)
-    first_name = CharField(max_length=150)
-    last_name = CharField(max_length=150)
+    name = CharField(_("Name of User"), blank=True, max_length=50)
+    first_name = CharField(_("First Name"), max_length=50)
+    last_name = CharField(_("Last Name"), max_length=50)
 
-    def get_absolut_url(self) -> str:
-        return reverse("users:detail", kwargs={"username": self.username})
+    def get_absolute_url(self) -> str:
+        return reverse("users:detail", kwargs={"username": self.name})

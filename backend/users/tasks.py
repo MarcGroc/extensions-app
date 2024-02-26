@@ -5,6 +5,6 @@ User = get_user_model()
 
 
 @celery_app.task()
-def get_users_count():
+def get_users_count() -> int:
     """test task"""
     return User.objects.count()

@@ -20,8 +20,7 @@ repos:
       rev: '1.7.7'
       hooks:
         - id: bandit
-          args: [ "-c", "pyproject.toml" ]
-          additional_dependencies: [ "bandit[toml]" ]
+          args: ['--exclude', '*/tests/']
 
     - repo: https://github.com/PyCQA/isort
       rev: 5.13.2

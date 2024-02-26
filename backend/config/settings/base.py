@@ -7,17 +7,13 @@ from pathlib import Path
 import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
+BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent.parent
 env = environ.Env()
 
-# Check if  production or development and read .env
-# IS_PRODUCTION = env.bool("IS_PRODUCTION", default=False)
-# if IS_PRODUCTION:
 env.read_env(str(BASE_DIR / ".env/.env.dev"))
-# env.read_env(str(BASE_DIR / ".env/.env.dev"))
+
 
 # GENERAL SETTINGS
-
 # On Windows must set to system timezone
 TIME_ZONE = "UTC"
 USE_TZ = True
@@ -185,10 +181,11 @@ CELERY_WORKER_SEND_TASK_EVENTS = True
 CELERY_TASK_SEND_SENT_EVENT = True
 
 # ALLAUTH SETTINGS
-ACCOUNT_ALLOW_REGISTRATION = env.bool("ALLOW_REGISTRATION", True)
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+# ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_AUTHENTICATION_METHOD = "username"
+ACCOUNT_ALLOW_REGISTRATION = env.bool("ALLOW_REGISTRATION", True)
+
 
 # DRF SETTINGS
 REST_FRAMEWORK = {
@@ -204,13 +201,13 @@ REST_FRAMEWORK = {
 CORS_URLS_REGEX = r"^/api/.*$"
 
 SPECTACULAR_SETTINGS = {
-    "TITLE": "Django-Vue API",
-    "DESCRIPTION": "Documentation of API endpoints of django-vue",
-    "VERSION": "1.0.0",
+    "TITLE": f"{env('PROJECT_NAME')} API",
+    "DESCRIPTION": f"Documentation of API endpoints of {env('PROJECT_NAME')}",
+    "VERSION": f"{env('PROJECT_VERSION')}",
     "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAdminUser"],
 }
 
-# MONITORING SETTINGS
+
 # PROMETHEUS SETTINGS
 PROMETHEUS_LATENCY_BUCKETS = (
     0.01,

@@ -4,7 +4,9 @@ from loguru import logger
 
 
 class InterceptHandler(logging.Handler):
-    def emit(self, record):
+    """Intercept loguru logs and send them to Logstash"""
+
+    def emit(self, record) -> None:
         # Get corresponding Loguru level if it exists
         try:
             level = logger.level(record.levelname).name
@@ -21,5 +23,6 @@ class InterceptHandler(logging.Handler):
 
 
 logging.basicConfig(handlers=[InterceptHandler()], level=0)
+
 logger.add("logs/backend/errors.log", level="ERROR", retention="7 days", rotation="1 day")
 logger.add("logs/backend/critical.log", level="CRITICAL", retention="7 days", rotation="1 day")

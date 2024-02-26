@@ -1,7 +1,7 @@
 from base import *  # noqa
 
-SECRET_KEY = env("DJANGO_SECRET_KEY")
 DEBUG = False
+SECRET_KEY = env("DJANGO_SECRET_KEY")
 ALLOWED_HOSTS = env("ALLOWED_HOSTS")
 DATABASES = {"default": env.db("DATABASE_URL")}
 DATABASES["default"]["CONN_MAX_AGE"] = env.int("CONN_MAX_AGE", default=60)
