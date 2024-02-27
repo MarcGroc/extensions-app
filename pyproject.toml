@@ -64,10 +64,6 @@ django-storages = "^1.14.2"
 addopts = "--ds=config.settings.test --reuse-db"
 python_files = "test_*.py"
 
-[tool.bandit]
-#target = ["backend"]
-exclude_dirs = ['*/tests/']
-
 
 [tool.ruff]
 line-length = 119
