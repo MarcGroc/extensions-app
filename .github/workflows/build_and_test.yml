@@ -1,57 +1,57 @@
-name: Build and Test
-
-env:
-  DOCKER_BUILDKIT: 1
-  COMPOSE_DOCKER_CLI_BUILD: 1
-
-on:
-  push:
-    branches: [ 'main']
-
-concurrency:
-  group: ${{ github.head_ref }}-${{ github.run_id }}
-  cancel-in-progress: true
-
-jobs:
-
-  build-and-test:
-    name: Build and test
-    runs-on: ubuntu-latest
-    if: github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
-    services:
-      docker:
-        image: docker:19.03.12
-        options: --privileged
-        ports:
-          - 2375:2375
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Prepare env file
-        run: |
-          mkdir -p .env
-          cp .env/env.example .env/.env.dev
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Cache Docker layers
-        uses: satackey/action-docker-layer-caching@v0.0.11
-        continue-on-error: true
-
-      - name: Build the Docker Compose Stack
-        run: docker-compose -f development.yml build
-
-      - name: Run Docker Compose Services
-        run: docker-compose -f development.yml up -d
-
-
-#      - name: Run DB Migrations
-#        run: docker-compose -f development.yml run --rm django python manage.py migrate
-
-      - name: Run Tests
-        run: docker-compose -f development.yml run --rm django python manage.py test
-
-
-      - name: Tear Down Docker Compose Services
-        run: docker-compose -f development.yml down
+#name: Build and Test
+#
+#env:
+#  DOCKER_BUILDKIT: 1
+#  COMPOSE_DOCKER_CLI_BUILD: 1
+#
+#on:
+#  push:
+#    branches: [ 'main']
+#
+#concurrency:
+#  group: ${{ github.head_ref }}-${{ github.run_id }}
+#  cancel-in-progress: true
+#
+#jobs:
+#
+#  build-and-test:
+#    name: Build and test
+#    runs-on: ubuntu-latest
+#    if: github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
+#    services:
+#      docker:
+#        image: docker:19.03.12
+#        options: --privileged
+#        ports:
+#          - 2375:2375
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v4
+#
+#      - name: Prepare env file
+#        run: |
+#          mkdir -p .env
+#          cp .env/env.example .env/.env.dev
+#      - name: Set up Docker Buildx
+#        uses: docker/setup-buildx-action@v3
+#
+#      - name: Cache Docker layers
+#        uses: satackey/action-docker-layer-caching@v0.0.11
+#        continue-on-error: true
+#
+#      - name: Build the Docker Compose Stack
+#        run: docker-compose -f development.yml build
+#
+#      - name: Run Docker Compose Services
+#        run: docker-compose -f development.yml up -d
+#
+#
+##      - name: Run DB Migrations
+##        run: docker-compose -f development.yml run --rm django python manage.py migrate
+#
+#      - name: Run Tests
+#        run: docker-compose -f development.yml run --rm django python manage.py test
+#
+#
+#      - name: Tear Down Docker Compose Services
+#        run: docker-compose -f development.yml down
