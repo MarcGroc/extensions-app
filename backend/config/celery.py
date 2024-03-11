@@ -9,8 +9,8 @@ celery_app.config_from_object("django.conf:settings", namespace="CELERY")
 celery_app.autodiscover_tasks()
 
 celery_app.conf.beat_schedule = {
-    "test-task-every-30-seconds": {
-        "task": "users.tasks.get_users_count",
-        "schedule": 30.0,
-    },
+    # "test-task-every-30-seconds": {
+    #     "task": "users.tasks.get_users_count",
+    #     "schedule": 30.0,
+    # },
 }

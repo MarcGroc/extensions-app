@@ -11,13 +11,13 @@ RUN apk update \
     && apk add --no-cache gcc musl-dev postgresql-dev \
     && rm -rf /var/cache/apk/*
 
-COPY /requirements/requirements.txt .
-COPY /requirements/dev-requirements.txt .
+COPY /backend/requirements/requirements.txt .
+COPY /backend/requirements/dev-requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt && \
     pip install --no-cache-dir -r dev-requirements.txt
 
-COPY . /app
+COPY .. /app
 
 RUN chmod +x /app/compose/development/start
 
