@@ -83,8 +83,3 @@ AXES_FAILURE_LIMIT = 3
 AXES_COOLOFF_TIME = 0.1
 AXES_ENABLE_ADMIN = True
 AXES_VERBOSE = True
-
-CORS_ORIGIN_ALLOW_ALL = False
-CORS_ORIGIN_WHITELIST = [
-    "http://localhost:5173",  # Allow Vue.js development server
-]

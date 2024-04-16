@@ -25,3 +25,18 @@ touch .env/env.dev && touch .env/env.prod
 ``` bash
 cp .env.example .env/dev
 ```
+#### Replace default values in .env.dev
+#### Change directory to backend
+``` bash
+cd django-vue-template/backend
+```
+
+#### Make migrations for users app
+``` bash
+python manage.py makemigrations users
+```
+
+#### Migrate to db
+``` bash
+python manage.py migrate
+```

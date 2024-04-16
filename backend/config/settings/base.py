@@ -38,6 +38,7 @@ DJANGO_APPS = [
 ]
 THIRD_PARTY_APPS = [
     "rest_framework",
+    "rest_framework.authtoken",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",  # noqa
@@ -47,6 +48,8 @@ THIRD_PARTY_APPS = [
     "axes",
     "loguru",
     "django_prometheus",
+    "dj_rest_auth",
+    "dj_rest_auth.registration",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS
@@ -93,8 +96,8 @@ PASSWORD_HASHERS = [
 # MIDDLEWARE
 MIDDLEWARE = [
     "django_prometheus.middleware.PrometheusBeforeMiddleware",
-    "django.middleware.security.SecurityMiddleware",
     "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -152,7 +155,7 @@ LOGGING = {
     "handlers": {
         "default": {
             "level": "DEBUG",
-            "class": "backend.config.loguru_config.InterceptHandler",
+            "class": "config.loguru_config.InterceptHandler",
         },
     },
     "loggers": {
@@ -181,11 +184,11 @@ CELERY_WORKER_SEND_TASK_EVENTS = True
 CELERY_TASK_SEND_SENT_EVENT = True
 
 # ALLAUTH SETTINGS
-# ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_REQUIRED = True
 # ACCOUNT_EMAIL_VERIFICATION = "mandatory"
-ACCOUNT_AUTHENTICATION_METHOD = "username"
+ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_ALLOW_REGISTRATION = env.bool("ALLOW_REGISTRATION", True)
-
+ACCOUNT_USERNAME_MIN_LENGTH = 3
 
 # DRF SETTINGS
 REST_FRAMEWORK = {
@@ -196,9 +199,20 @@ REST_FRAMEWORK = {
     # "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
+
+# REST_AUTH
+
+
 # CORS SETTINGS
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 # Restricts url for api
 # CORS_URLS_REGEX = r"^/api/.*$"
+CSRF_COOKIE_HTTPONLY = True
+SESSION_COOKIE_HTTPONLY = True
+
+SESSION_COOKIE_SAMESITE = "None"
+CSRF_COOKIE_SAMESITE = "None"
 
 SPECTACULAR_SETTINGS = {
     "TITLE": f"{env('PROJECT_NAME')} API",

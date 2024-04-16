@@ -574,6 +574,23 @@ files = [
 ]
 
 [[package]]
+name = "dj-rest-auth"
+version = "5.1.0"
+description = "Authentication and Registration in Django Rest Framework"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "dj-rest-auth-5.1.0.tar.gz", hash = "sha256:2337a17fc9ce35eb294c7dbd9a4c12c7e7e6d448eb827fc67415589204c39d35"},
+]
+
+[package.dependencies]
+Django = ">=3.2,<5.0"
+djangorestframework = ">=3.13.0"
+
+[package.extras]
+with-social = ["django-allauth (>=0.56.0,<0.62.0)"]
+
+[[package]]
 name = "django"
 version = "4.2.10"
 description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
@@ -2382,4 +2399,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "dedb7d00c0dba56d9f7cde9fefdc230ac7313ee429043a33dc320421a1b19fb0"
+content-hash = "9f132e8e32fbc02331793c66580f3b7d7aae680af5847e620ff9c6bcc61f76e1"
