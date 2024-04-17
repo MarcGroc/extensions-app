@@ -4,15 +4,23 @@
     <main-container invert>
       <section class="space-top space-bottom">
         <div class="pt-15">
-          <h2 class="text-h2 text-center font-weight-bold mb-4">
-            {{ $t('common.title') }}
+          <h2 class="text-h4 text-center font-weight-bold mb-4">
+            {{ $t('common.privacy') }}
           </h2>
-          <h4 class="text-h4 text-center">
-            {{ $t('common.subtitle') }}
+          <h4 class="text-h6 text-center">
+            <p>{{ $t('common.privacy_text.intro') }}</p>
+            <p>{{ $t('common.privacy_text.dataCollection') }}</p>
+            <p>{{ $t('common.privacy_text.legalBasis') }}</p>
+            <p>{{ $t('common.privacy_text.dataRecipients') }}</p>
+            <p>{{ $t('common.privacy_text.dataRetention') }}</p>
+            <p>{{ $t('common.privacy_text.userRights') }}</p>
+            <p>{{ $t('common.privacy_text.consentWithdrawal') }}</p>
+            <p>{{ $t('common.privacy_text.complaints') }}</p>
+            <p>{{ $t('common.privacy_text.notice') }}</p>
           </h4>
         </div>
       </section>
-      <notification />
+<!--      <notification />-->
     </main-container>
   </div>
 </template>

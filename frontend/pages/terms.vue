@@ -4,11 +4,16 @@
     <main-container invert>
       <section class="space-top space-bottom">
         <div class="pt-15">
-          <h2 class="text-h2 text-center font-weight-bold mb-4">
-            {{ $t('common.title') }}
+          <h2 class="text-h4 text-center font-weight-bold mb-4">
+            {{ $t('common.terms') }}
           </h2>
-          <h4 class="text-h4 text-center">
-            {{ $t('common.subtitle') }}
+          <h4 class="text-h6 text-center">
+            <p>{{ $t('common.terms_text.userRequirements') }}</p>
+            <p>{{ $t('common.terms_text.useLicense') }}</p>
+            <p>{{ $t('common.terms_text.userResponsibilities') }}</p>
+            <p>{{ $t('common.terms_text.privacyPolicy') }}</p>
+            <p>{{ $t('common.terms_text.changesToTerms') }}</p>
+            <p>{{ $t('common.terms_text.finalProvisions') }}</p>
           </h4>
         </div>
       </section>

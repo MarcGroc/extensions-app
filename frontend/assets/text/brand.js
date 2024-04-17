@@ -13,8 +13,7 @@ const brand = {
     facebook: 'https://www.facebook.com',
     twitter: 'https://twitter.com',
     instagram: 'https://www.instagram.com',
-    notifMsg:
-      `${projectName} - notification`,
+    notifMsg: `${projectName} - notification`,
   },
 };
 export default brand;

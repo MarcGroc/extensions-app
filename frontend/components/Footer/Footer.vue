@@ -209,8 +209,8 @@ export default {
       //   ],
       // },
       {
-        title: 'Legal',
-        description: ['Privacy policy', 'Terms of use', 'Contact'],
+        title: 'O nas',
+        description: ['Polityka prywatnosci', 'Regulamin', 'Kontakt'],
         link: ['/privacy', '/terms', '/contact'],
       },
     ],
