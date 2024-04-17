@@ -6,7 +6,7 @@ SECRET_KEY = env("SECRET_KEY")
 ALLOWED_HOSTS = ["*"]
 
 # ADMIN SETTINGS
-ADMIN_URL = "iaewrfhijxnx/"
+ADMIN_URL = "admin/"
 ADMINS = [
     (env("ADMIN_NAME"), env("ADMIN_EMAIL")),
 ]

@@ -146,14 +146,11 @@ export default {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(formData), // Make sure to stringify the body
+            body: JSON.stringify(formData),
           });
-          if (!response.ok) { // Check if the response status code is not OK (200-299)
-            throw new Error('Network response was not ok.');
+          if (response.ok) {
+            this.$router.push('/');
           }
-          const data = await response.json(); // Parsing the JSON response body
-          console.log(data);
-          this.$router.push('/'); // Navigating to home
         } catch (error) {
           if (error.response) {
             console.log('Error status:', error.response.status);

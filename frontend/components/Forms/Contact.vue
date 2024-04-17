@@ -83,24 +83,6 @@
                     required
                   />
                 </v-col>
-<!--                <v-col cols="12" sm="6" class="py-1 px-6">-->
-<!--                  <v-text-field-->
-<!--                    v-model="phone"-->
-<!--                    :label="$t('common.form_phone')"-->
-<!--                    color="white"-->
-<!--                    class="input light"-->
-<!--                    filled-->
-<!--                  />-->
-<!--                </v-col>-->
-<!--                <v-col cols="12" sm="6" class="py-1 px-6">-->
-<!--                  <v-text-field-->
-<!--                    v-model="company"-->
-<!--                    :label="$t('common.form_company')"-->
-<!--                    color="white"-->
-<!--                    class="input light"-->
-<!--                    filled-->
-<!--                  />-->
-<!--                </v-col>-->
                 <v-col cols="12" class="py-1 px-6">
                   <v-textarea
                     v-model="message"
@@ -180,8 +162,6 @@ export default {
         v => !!v || 'E-mail is required',
         v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
       ],
-      phone: '',
-      company: '',
       message: '',
       checkbox: false,
       logo,
@@ -200,8 +180,28 @@ export default {
       const { valid } = await this.$refs.form.validate();
 
       if (valid) {
-        this.snackbar = true;
-        this.hideDetail = true;
+        try {
+          const formData = {
+            name: this.name,
+            email: this.email,
+            message: this.message,
+          };
+          const response = await fetch('http://localhost:8000/api/contact/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+          });
+          if (response.ok) {
+            this.snackbar = true;
+            this.hideDetail = true;
+          } else {
+            this.snackbar = true;
+          }
+        } catch (error) {
+          console.error('Error during fetch:', error.message);
+        }
       } else {
         this.hideDetail = false;
       }

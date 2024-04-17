@@ -35,6 +35,7 @@ DJANGO_APPS = [
     "django.contrib.sites",
     "django.forms",
     "users",
+    "contact",
 ]
 THIRD_PARTY_APPS = [
     "rest_framework",
@@ -205,14 +206,14 @@ REST_FRAMEWORK = {
 
 # CORS SETTINGS
 CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_CREDENTIALS = True
 # Restricts url for api
 # CORS_URLS_REGEX = r"^/api/.*$"
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = ["*"]
+
 CSRF_COOKIE_HTTPONLY = True
 SESSION_COOKIE_HTTPONLY = True
 
-SESSION_COOKIE_SAMESITE = "None"
-CSRF_COOKIE_SAMESITE = "None"
 
 SPECTACULAR_SETTINGS = {
     "TITLE": f"{env('PROJECT_NAME')} API",

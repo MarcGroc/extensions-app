@@ -92,7 +92,7 @@ export default {
   },
   setup() {
     const visible = ref(false);
-    const wrapper = ref(null);
+    const wrapper = ref(0);
     const offset = 500;
     function runCounter() {
       const scrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
