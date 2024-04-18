@@ -37,6 +37,7 @@
     "register_confirm": "Potwierdź hasło",
     "register_title": "Miło Cię poznać :)",
     "register_subtitle": "Zarejestruj się, aby do nas dołączyć",
+    "confirm_email": "Na podany addres email został wysłany link do aktywacji konta. Kliknij w link aby aktywowć konto.",
     "accept": "Akceptuj",
     "en": "Angielski",
     "de": "Niemiecki",

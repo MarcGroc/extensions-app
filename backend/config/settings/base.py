@@ -17,6 +17,7 @@ env.read_env(str(BASE_DIR / ".env/.env.dev"))
 # On Windows must set to system timezone
 TIME_ZONE = "UTC"
 USE_TZ = True
+PROJECT_NAME = env("PROJECT_NAME")
 
 # INTERNATIONALIZATION
 LANGUAGE_CODE = "en-us"
@@ -34,6 +35,8 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.sites",
     "django.forms",
+]
+PROJECT_APPS = [
     "users",
     "contact",
 ]
@@ -53,7 +56,7 @@ THIRD_PARTY_APPS = [
     "dj_rest_auth.registration",
 ]
 
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS
+INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
 
 # DATABASE SETTINGS
 
@@ -146,7 +149,14 @@ FIXTURE_DIRS = (str(BASE_DIR / "fixtures"),)
 
 # EMAIL SETTINGS
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-EMAIL_TIMEOUT = 5
+EMAIL_HOST = env("EMAIL_HOST")
+EMAIL_PORT = env("EMAIL_PORT")
+# EMAIL_HOST_USER = ''
+# EMAIL_HOST_PASSWORD = ''
+# EMAIL_USE_TLS = False
+# EMAIL_USE_SSL = False
+DEFAULT_FROM_EMAIL = "from@example.com"
+# EMAIL_TIMEOUT = 5
 
 # LOGGING SETTINGS
 # Logging is handled by loguru

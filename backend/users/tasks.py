@@ -1,10 +1,23 @@
-from config import celery_app
+from celery import shared_task
+from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.core.mail import send_mail
+
+welcome_message = {
+    "welcome": f"Witamy w {settings.PROJECT_NAME}!",
+    "account_activation": "Kliknij link poniżej, aby aktywować konto.",
+}
 
 User = get_user_model()
 
 
-@celery_app.task()
-def get_users_count() -> int:
-    """test task"""
-    return User.objects.count()
+@shared_task
+def send_welcome_email(user_id: User):
+    user = User.objects.get(id=user_id)
+    send_mail(
+        welcome_message["welcome"],
+        welcome_message["account_activation"],
+        settings.DEFAULT_FROM_EMAIL,
+        [user.email],
+        fail_silently=False,
+    )

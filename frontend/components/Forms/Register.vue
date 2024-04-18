@@ -172,17 +172,14 @@ export default {
             password1: this.password,
             password2: this.confirmPassword,
           };
-          alert('data subnmited');
           const response = await $fetch('http://localhost:8000/api/dj-rest-auth/registration/', {
             method: 'POST',
             body: formData,
             contentType: 'application/json',
           });
-          alert(response.status);
           console.log(response); // eslint-disable-line
           this.$router.push('/login');
         } catch (error) {
-          alert(error);
           console.log(error);
         }
       } else {

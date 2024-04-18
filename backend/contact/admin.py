@@ -1,18 +1,24 @@
 from contact.models import Question
 from django.contrib import admin
-from django.urls import reverse
-from django.utils.html import format_html
+
+from .tasks import reply_to_question
 
 
 @admin.register(Question)
 class ContactAdmin(admin.ModelAdmin):
-    readonly_fields = ("email", "message")
-    fields = ("name", "email", "message")
+    readonly_fields = ("name", "email", "message", "confirmation_sent", "created_at")
+    fields = ("name", "email", "message", "confirmation_sent", "created_at", "answered", "answer")
     search_fields = ["name", "email", "message"]
+    list_display = ("name", "email", "message", "confirmation_sent", "answered", "created_at")
+    actions = ["reply_to_question"]
 
-    def reply(self, obj):
-        url = reverse("contact:reply", kwargs={"id": obj.id})
-        return format_html('<a href="{}">Reply</a>', url)
-
-    reply.short_description = "Reply"
-    list_display = ("name", "email", "message", "reply")
+    def save_model(self, request, obj, form, change):
+        if "answer" in form.changed_data:
+            if obj.answer and not obj.answered:
+                reply_to_question(obj)
+                obj.answered = True
+                obj.save()
+                self.message_user(request, "Answer sent")
+            else:
+                self.message_user(request, "Answer already sent")
+        super().save_model(request, obj, form, change)
