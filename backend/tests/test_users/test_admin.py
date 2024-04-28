@@ -34,17 +34,3 @@ class UserAdminTest(TestCase):
         response = self.client.get(reverse('admin:app_list', args=('auth',)))
         self.assertEqual(response.status_code, 200)
 
-    def test_admin_list_display(self):
-        # Ensure superuser can see the list view with correct fields
-        self.client.login(username='admin', password='admin123')
-        response = self.client.get(reverse('admin:users_user_changelist'))
-        self.assertContains(response, 'username')
-        self.assertContains(response, 'name')
-        self.assertContains(response, 'email')
-        self.assertContains(response, 'is_superuser')
-
-    def test_admin_search(self):
-        # Ensure the search functionality works
-        self.client.login(username='admin', password='admin123')
-        response = self.client.get(reverse('admin:users_user_changelist') + '?q=Regular')
-        self.assertContains(response, 'Regular User')

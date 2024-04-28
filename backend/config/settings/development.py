@@ -1,6 +1,11 @@
+"""
+Development settings.
+Adjust as needed.
+"""
+
 from .base import *  # noqa
 
-env.read_env(str(BASE_DIR / "backend/.env/.env.dev"))
+env.read_env(str(BASE_DIR / ".env/.env.dev"))
 DEBUG = True
 SECRET_KEY = env("SECRET_KEY")
 ALLOWED_HOSTS = ["*"]
@@ -28,13 +33,18 @@ DATABASES = {
 CONNECTION_ATTEMPTS = 5
 DELAY_BETWEEN_ATTEMPTS = 5
 
-
 # CACHES SETTINGS
 CACHES = {
     "default": {
-        "BACKEND": "django_prometheus.cache.backends.locmem.LocMemCache",
+        "BACKEND": "django_prometheus.cache.backends.locmem.LocMemCache",  # local memory, change to redis if needed
         "LOCATION": "",
     }
+}
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",
+    ],
 }
 
 # EMAIL SETTINGS
@@ -76,10 +86,3 @@ INSTALLED_APPS += ["django_extensions"]
 CELERY_TASK_EAGER_PROPAGATES = True
 CELERY_BROKER_URL = env("CELERY_BROKER_URL")
 CELERY_RESULT_BACKEND = env("CELERY_RESULT_BACKEND")
-
-
-AXES_ENABLED = True
-AXES_FAILURE_LIMIT = 3
-AXES_COOLOFF_TIME = 0.1
-AXES_ENABLE_ADMIN = True
-AXES_VERBOSE = True

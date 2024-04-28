@@ -9,10 +9,13 @@ https://docs.djangoproject.com/en/5.0/howto/deployment/asgi/
 
 import os
 
-from config.websocket import websocket_application
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.development")
+from config.websocket import websocket_application
+
+env = "config.settings.development"
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", env)
 
 django_application = get_asgi_application()
 

@@ -1,13 +1,15 @@
 """
 URL configuration for config project.
 """
-from config.settings.development import ADMIN_URL
+
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework.authtoken.views import obtain_auth_token
+
+from config.settings.development import ADMIN_URL
 
 urlpatterns = [
     path("__debug__/", include("debug_toolbar.urls")),

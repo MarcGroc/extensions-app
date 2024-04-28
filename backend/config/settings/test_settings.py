@@ -1,3 +1,6 @@
+"""
+Test settings.
+"""
 from .base import *  # noqa
 
 env.read_env(str(BASE_DIR / ".env/.env.dev"))

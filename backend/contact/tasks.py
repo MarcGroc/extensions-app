@@ -1,7 +1,6 @@
 from celery import shared_task
 from django.conf import settings
 from django.core.mail import send_mail
-from loguru import logger
 
 from .models import Question
 
@@ -13,7 +12,7 @@ _email_content = {
 
 
 @shared_task
-def send_confirmation_email(question_id):
+def send_confirmation_email(question_id: Question):
     question = Question.objects.get(id=question_id)
     subject = _email_content["intro"]
     message = f"{_email_content['received']}\n{_email_content['thank_you']}"
@@ -27,8 +26,6 @@ def send_confirmation_email(question_id):
     )
     question.confirmation_sent = True
     question.save()
-
-    logger.debug(f"Confirmation email sent to {question.email}")
 
 
 # @shared_task

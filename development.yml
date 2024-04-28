@@ -40,7 +40,7 @@ services:
     image: nginx
     container_name: dev-nginx
     hostname: nginx
-    restart: unless-stopped
+#    restart: unless-stopped
     ports:
       - '80:80'
       - '443:443'

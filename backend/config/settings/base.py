@@ -12,9 +12,8 @@ env = environ.Env()
 
 env.read_env(str(BASE_DIR / ".env/.env.dev"))
 
-
 # GENERAL SETTINGS
-# On Windows must set to system timezone
+# On local Windows must set to system timezone
 TIME_ZONE = "UTC"
 USE_TZ = True
 PROJECT_NAME = env("PROJECT_NAME")
@@ -75,6 +74,7 @@ AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
+
 # Can be set only once during first migration
 AUTH_USER_MODEL = "users.User"
 LOGIN_REDIRECT_URL = "users:redirect"
@@ -96,7 +96,6 @@ PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.BCryptPasswordHasher",
 ]
 
-
 # MIDDLEWARE
 MIDDLEWARE = [
     "django_prometheus.middleware.PrometheusBeforeMiddleware",
@@ -113,11 +112,9 @@ MIDDLEWARE = [
     "django_prometheus.middleware.PrometheusAfterMiddleware",
 ]
 
-
 # STATIC
 STATIC_ROOT = str(BASE_DIR / "staticfiles")
 STATIC_URL = "/static/"
-
 
 # MEDIA
 MEDIA_ROOT = str(BASE_DIR / "media")
@@ -151,15 +148,10 @@ FIXTURE_DIRS = (str(BASE_DIR / "fixtures"),)
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 EMAIL_HOST = env("EMAIL_HOST")
 EMAIL_PORT = env("EMAIL_PORT")
-# EMAIL_HOST_USER = ''
-# EMAIL_HOST_PASSWORD = ''
-# EMAIL_USE_TLS = False
-# EMAIL_USE_SSL = False
 DEFAULT_FROM_EMAIL = "from@example.com"
-# EMAIL_TIMEOUT = 5
 
 # LOGGING SETTINGS
-# Logging is handled by loguru
+# Logging is handled by loguru backend/config/loguru_config.py
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
@@ -180,7 +172,6 @@ LOGGING = {
 
 # CELERY SETTINGS
 CELERY_TIMEZONE = TIME_ZONE
-
 CELERY_RESULT_EXTENDED = True
 # Retry if failed
 CELERY_RESULT_BACKEND_ALWAYS_RETRY = True
@@ -196,18 +187,19 @@ CELERY_TASK_SEND_SENT_EVENT = True
 
 # ALLAUTH SETTINGS
 ACCOUNT_EMAIL_REQUIRED = True
-# ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+# ACCOUNT_EMAIL_VERIFICATION = "mandatory" # not used, not tested
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_ALLOW_REGISTRATION = env.bool("ALLOW_REGISTRATION", True)
 ACCOUNT_USERNAME_MIN_LENGTH = 3
 
 # DRF SETTINGS
+
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
     ),
-    # "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    # "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",), # disabled for testing
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
@@ -224,14 +216,12 @@ CORS_ALLOW_HEADERS = ["*"]
 CSRF_COOKIE_HTTPONLY = True
 SESSION_COOKIE_HTTPONLY = True
 
-
 SPECTACULAR_SETTINGS = {
     "TITLE": f"{env('PROJECT_NAME')} API",
     "DESCRIPTION": f"Documentation of API endpoints of {env('PROJECT_NAME')}",
     "VERSION": f"{env('PROJECT_VERSION')}",
     "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAdminUser"],
 }
-
 
 # PROMETHEUS SETTINGS
 PROMETHEUS_LATENCY_BUCKETS = (
@@ -254,3 +244,10 @@ PROMETHEUS_LATENCY_BUCKETS = (
     float("inf"),
 )
 PROMETHEUS_EXPORT_MIGRATIONS = True
+
+# AXES SETTINGS
+AXES_ENABLED = True
+AXES_FAILURE_LIMIT = 3  # number of failed logins, change if needed
+AXES_COOLOFF_TIME = 0.1
+AXES_ENABLE_ADMIN = True
+AXES_VERBOSE = True
