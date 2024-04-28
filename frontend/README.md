@@ -1,27 +1,19 @@
-# `saas-theme`
-
-> TODO: description
-
-## Installation
-
+## Project setup
 ```
 npm install
 ```
 
-## Run Development
-
+### Compiles and hot-reloads for development
 ```
-npm run dev
+npm run serve
 ```
 
-## Build
-
+### Compiles and minifies for production
 ```
 npm run build
 ```
 
-## Run Production
-
+### Run tests
 ```
-npm run preview
+npm run test
 ```

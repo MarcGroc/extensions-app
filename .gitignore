@@ -214,10 +214,10 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-backend/.env/
-backend/.env/.env.dev
-backend/.env/.env.prod
-backend/.env/.env.test
+.env/
+.env/.env.dev
+.env/.env.prod
+.env/.env.test
 
 .venv
 env/
@@ -258,4 +258,4 @@ cython_debug/
 .idea/
 
 **/migrations/
-!/backend/.env/env.example
+!/.env/env.example
