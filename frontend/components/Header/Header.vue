@@ -52,7 +52,7 @@
                 class="anchor-link scrollactive-item"
               >
                 <img
-                  :src="logo"
+                  :src="tylkozapytam"
                   alt="logo"
                 >
                 {{ brand.saas.name }}
@@ -121,6 +121,7 @@
 <script>
 import { inject } from 'vue';
 import logo from '@/assets/images/saas-logo.svg';
+import tylkozapytam from '@/assets/images/tylkozapytam.svg';
 import link from '@/assets/text/link';
 import brand from '@/assets/text/brand';
 import Hidden from '../Hidden';
@@ -143,7 +144,7 @@ function createData(name, url, offset) {
 
 export default {
   components: {
-    'setting-menu': Settings,
+    // 'setting-menu': Settings,
     Hidden,
     MobileMenu,
   },
@@ -176,6 +177,7 @@ export default {
   data() {
     return {
       logo,
+      tylkozapytam,
       link,
       loaded: false,
       brand,

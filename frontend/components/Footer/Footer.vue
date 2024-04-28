@@ -9,7 +9,7 @@
         >
           <div class="logo">
             <img
-              :src="logo"
+              :src="tylkozapytam"
               alt="logo"
             >
             <h6 class="text-h6">
@@ -145,6 +145,8 @@ import { useI18n } from 'vue-i18n';
 import { useSwitchLocalePath } from 'vue-i18n-routing';
 import { setRtl } from '@/composables/uiTheme';
 import logo from '@/assets/images/saas-logo.svg';
+import tylkozapytam from '@/assets/images/tylkozapytam.svg';
+
 import brand from '@/assets/text/brand';
 import { navigateTo } from '#app';
 
@@ -186,6 +188,7 @@ export default {
   },
   data: () => ({
     logo,
+    tylkozapytam,
     brand,
     footers: [
       // {

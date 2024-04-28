@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+python3 manage.py migrate --noinput
+python3 manage.py makemigrations --noinput
+python3 manage.py check_db
+#python manage.py load_fixtures
+#python manage.py collectstatic --noinput
+gunicorn -c config/gunicorn/gunicorn_dev_config.py config.wsgi:application --reload

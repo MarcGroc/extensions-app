@@ -1,6 +1,6 @@
 from .base import *  # noqa
 
-env.read_env(str(BASE_DIR / ".env/.env.dev"))
+env.read_env(str(BASE_DIR / "backend/.env/.env.dev"))
 DEBUG = True
 SECRET_KEY = env("SECRET_KEY")
 ALLOWED_HOSTS = ["*"]
@@ -38,8 +38,8 @@ CACHES = {
 }
 
 # EMAIL SETTINGS
-EMAIL_HOST = env("EMAIL_HOST")
-EMAIL_PORT = env("EMAIL_PORT")
+# EMAIL_HOST = env("EMAIL_HOST")
+# EMAIL_PORT = env("EMAIL_PORT")
 
 # DEBUG TOOLBAR
 INSTALLED_APPS += ["debug_toolbar"]
