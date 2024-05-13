@@ -76,6 +76,7 @@
 
 <script>
     import textData from '../assets/text.json'
+    import axios from "@/axios.js";
 
     export default {
       name: 'RegisterForm',
@@ -100,13 +101,7 @@
                 password: this.$refs.form.password.value
               }
               try {
-                const response = await fetch('http://localhost:8000/api/dj-rest-auth/registration/', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify(formData),
-                });
+                const response = await axios.post('/dj-rest-auth/registration/', formData);
                 if (response.ok) {
                   console.log('Form submitted successfully');
                   this.$refs.form.reset();

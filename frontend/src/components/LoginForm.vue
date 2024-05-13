@@ -65,6 +65,8 @@
 </template>
 
 <script>
+    import axios from "@/axios.js";
+
     import textData from '../assets/text.json'
 
     export default {
@@ -83,13 +85,7 @@
                   password: this.$refs.form.password.value,
                 };
                 try {
-                  const response = await fetch('http://localhost:8000/api/dj-rest-auth/login/', {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData),
-                  });
+                  const response = await axios.post('/dj-rest-auth/login/', formData);
                   if (response.ok) {
                     this.$router.push('/');
                     this.$refs.form.reset();

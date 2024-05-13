@@ -8,9 +8,9 @@
                     </div>
                     <!-- newsletter form -->
                     <div class="newsletter-form--two section-space--mb_30 text-center wow move-up">
-                        <form method="post" @submit.prevent="handleSubmit">
-                            <input type="text" :placeholder="text.name" required>
-                            <input type="email" :placeholder="text.email" required>
+                        <form id="coming-soon-form" method="post" ref="form" @submit.prevent="handleSubmit">
+                            <input name="name" type="text" :placeholder="text.name" required>
+                            <input name="email" type="email" :placeholder="text.email" required>
                             <button type="submit" class="ht-btn ht-btn-md">{{ text.submit }}</button>
                         </form>
                         <p v-if="subscribed" class="subscribe-message">{{ subscribedmessage }}</p>
@@ -22,21 +22,34 @@
 </template>
 
 <script>
+    import axios from "@/axios.js";
+
     import textData from '../assets/text.json'
 
     export default {
         name: 'NewsletterThree',
         data() {
             return {
-                text:textData.newsletter,
+              text:textData.newsletter,
               subscribed: false,
               subscribedmessage: ''
             }
         },
         methods: {
-            handleSubmit() {
-                this.subscribed = true;
+            async handleSubmit() {
+                const formData = new FormData(this.$refs.form);
+                try {
+                    const response = await axios.post('/coming-soon/', formData);
+                    if (response.ok) {
+                        console.log('Form submitted successfully');
+                        this.$refs.form.reset();
+                    }
+                } catch (error) {
+                    console.error(error);
+                    console.log('Form submission failed');
+                }
                 this.subscribedmessage = 'Zapisano do newslettera.'
+                this.subscribed = true;
             },
         }
     }

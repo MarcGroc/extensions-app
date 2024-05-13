@@ -49,6 +49,7 @@
 
 
 <script>
+import axios from "@/axios.js";
 import textData from '../assets/text.json'
 
 export default {
@@ -68,14 +69,8 @@ export default {
                     message: this.$refs.form.message.value
                 };
                 try {
-                   const response = await fetch('http://localhost:8000/api/contact/', {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData),
-                  });
-                    console.log(response);
+                  const response = await axios.post('/contact/', formData);
+                  console.log(response);
                   if (response.ok) {
                     console.log('Form submitted successfully');
                     this.$refs.form.reset();

@@ -40,12 +40,6 @@ CACHES = {
         "LOCATION": "",
     }
 }
-REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": [],
-    "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.AllowAny",
-    ],
-}
 
 # EMAIL SETTINGS
 # EMAIL_HOST = env("EMAIL_HOST")

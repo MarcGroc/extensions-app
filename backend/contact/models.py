@@ -11,4 +11,14 @@ class Question(models.Model):
     answered = models.BooleanField(default=False)
 
     def __str__(self):
-        return f" Pytanie {self.id}"
+        return f"Pytanie {self.id}"
+
+
+class Newsletter(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    confirmation_sent = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"Newsletter {self.id}"

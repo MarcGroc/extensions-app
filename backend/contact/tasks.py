@@ -4,7 +4,7 @@ from django.core.mail import send_mail
 
 from .models import Question
 
-_email_content = {
+email_content = {
     "intro": f"Witamy w {settings.PROJECT_NAME}!",
     "received": "Otrzymaliśmysmy twoją wiadomość. Odpowiemy jak najszybciej. :)",
     "thank_you": "Dziękujemy!",
@@ -14,8 +14,8 @@ _email_content = {
 @shared_task
 def send_confirmation_email(question_id: Question):
     question = Question.objects.get(id=question_id)
-    subject = _email_content["intro"]
-    message = f"{_email_content['received']}\n{_email_content['thank_you']}"
+    subject = email_content["intro"]
+    message = f"{email_content['received']}\n{email_content['thank_you']}"
 
     send_mail(
         subject,

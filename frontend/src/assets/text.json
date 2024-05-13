@@ -134,5 +134,12 @@
     "title": "Używamy ciasteczek do poprawego działania serwisu.",
     "accept": "Akceptuj",
     "decline": "Odrzuć"
+  },
+  "comingSoon": {
+    "title": "Coś bardzo ciekawego wkrótce się pojawi!",
+    "subtitle": "Zostaw maila, damy znać niedługo :)",
+    "name": "Twoje Imię",
+    "email": "Twój Email",
+    "submit": "Ok, dajcie znać!"
   }
 }

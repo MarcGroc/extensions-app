@@ -24,5 +24,21 @@ class InterceptHandler(logging.Handler):
 
 logging.basicConfig(handlers=[InterceptHandler()], level=0)
 
-logger.add("logs/loguru-errors.log", level="ERROR", retention="7 days", rotation="1 day")
-logger.add("logs/loguru-critical.log", level="CRITICAL", retention="7 days", rotation="1 day")
+logger.add(
+    "logs/loguru-errors.log",
+    level="ERROR",
+    retention="7 days",
+    rotation="1 day",
+    enqueue=True,
+    backtrace=True,
+    diagnose=True,
+)
+logger.add(
+    "logs/loguru-critical.log",
+    level="CRITICAL",
+    retention="7 days",
+    rotation="1 day",
+    enqueue=True,
+    backtrace=True,
+    diagnose=True,
+)

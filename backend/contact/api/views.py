@@ -1,13 +1,36 @@
-from rest_framework import status, viewsets
+from django.db import transaction
+from rest_framework import mixins, status, viewsets
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
-from .serializers import ContactSerializer
+from contact.models import Newsletter, Question
+
+from .serializers import ComingSoonSerializer, ContactSerializer
 
 
-class ContactViewSet(viewsets.ViewSet):
-    def create(self, request):
-        serializer = ContactSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({"status": "success"}, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class ContactViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+    serializer_class = ContactSerializer
+    queryset = Question.objects.all()
+    permission_classes = [AllowAny]
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        with transaction.atomic():
+            self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+
+class ComingSoonViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+    serializer_class = ComingSoonSerializer
+    queryset = Newsletter.objects.all()
+    permission_classes = [AllowAny]
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        with transaction.atomic():
+            self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)

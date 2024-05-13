@@ -259,3 +259,4 @@ cython_debug/
 
 **/migrations/
 !/.env/env.example
+/frontend/.env

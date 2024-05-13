@@ -199,7 +199,7 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
     ),
-    # "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",), # disabled for testing
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),  # disabled for testing
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
@@ -220,7 +220,7 @@ SPECTACULAR_SETTINGS = {
     "TITLE": f"{env('PROJECT_NAME')} API",
     "DESCRIPTION": f"Documentation of API endpoints of {env('PROJECT_NAME')}",
     "VERSION": f"{env('PROJECT_VERSION')}",
-    "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAdminUser"],
+    "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAuthenticated"],
 }
 
 # PROMETHEUS SETTINGS
