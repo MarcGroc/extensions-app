@@ -37,7 +37,7 @@ jobs:
             uses: actions/cache@v4
             with:
               path: ~/.cache/pip
-              key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt')', '**/dev-requirements.txt') }}
+              key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt', '**/dev-requirements.txt') }}
               restore-keys: |
                 ${{ runner.os }}-pip-
 
@@ -68,5 +68,6 @@ jobs:
             env:
               DATABASE_URL: postgres://django:django@localhost:5432/django_test
               REDIS_URL: redis://localhost:6379/0
+              DJANGO_SETTINGS_MODULE: config.settings.test_settings
             run: |
               python backend/manage.py test --settings=config.settings.test_settings
