@@ -49,6 +49,8 @@ jobs:
           - name: Run migrations
             env:
               DATABASE_URL: postgres://django:django@localhost:5432/django_test
+              DJANGO_SETTINGS_MODULE: config.settings.test_settings
+
             run: |
               python backend/manage.py migrate
 
