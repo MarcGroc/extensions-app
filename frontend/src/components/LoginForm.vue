@@ -50,6 +50,9 @@
                     <div class="col-12">
                       <span class="section-text_left wow move-up">{{text.notAccount}} <router-link class="nav-link hover-style-link hover-style-link--green" to="/register">{{text.register}} >>></router-link></span>
                     </div>
+                    <div class="col-12">
+                      <span class="section-text_left wow move-up"> <router-link to="/password-reset" class="nav-link hover-style-link hover-style-link--green">{{text.forgot}} >>></router-link></span>
+                    </div>
                   </div>
                 </div>
                 <div class="col-lg-5 order-1 order-lg-2">

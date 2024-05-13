@@ -110,7 +110,7 @@
       "email": "Email",
       "password": "Hasło",
       "remember": "Zapamiętaj mnie",
-      "forgot": "Zapomniałem hasła",
+      "forgot": "Nie pamiętasz hasła?",
       "subtitle": "Zaloguj się używając Social Media",
       "submit": "Zaloguj",
       "notAccount": "Nie masz konta?",
@@ -141,5 +141,11 @@
     "name": "Twoje Imię",
     "email": "Twój Email",
     "submit": "Ok, dajcie znać!"
+  },
+  "forgot": {
+    "title": "Nie pamiętasz hasła?",
+    "subtitle": "Wpisz email, aby wysłac link do resetowania hasła",
+    "email": "Twój Email",
+    "submit": "Wyslij"
   }
 }

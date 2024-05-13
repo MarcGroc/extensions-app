@@ -30,8 +30,6 @@ logger.add(
     retention="7 days",
     rotation="1 day",
     enqueue=True,
-    backtrace=True,
-    diagnose=True,
 )
 logger.add(
     "logs/loguru-critical.log",
@@ -39,6 +37,4 @@ logger.add(
     retention="7 days",
     rotation="1 day",
     enqueue=True,
-    backtrace=True,
-    diagnose=True,
 )
