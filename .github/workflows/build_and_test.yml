@@ -50,7 +50,7 @@ jobs:
           - name: Create .env from env.example
             run: |
               cp .env/env.example .env/.env.dev
-              cat .env/.env.dev
+              echo "DJANGO_SETTINGS_MODULE=config.settings.development" >> .env/.env.dev
 
           
           - name: Run migrations
