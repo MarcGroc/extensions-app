@@ -49,20 +49,11 @@ jobs:
           
           - name: Create .env from env.example
             run: |
-              echo "Creating .env from env.example"
-              cp .env/.env.example .env/.env.dev
+              cp .env/env.example .env/.env.dev
+              echo "DJANGO_SETTINGS_MODULE=config.settings.development" >> .env/.env.dev
 
-          - name: Load environment variables
-            run: |
-              echo "Loading environment variables"
-              set -o allexport
-              source .env/.env.dev
-              set +o allexport
           
           - name: Run migrations
-            env:
-              DATABASE_URL: postgres://django:django@localhost:5432/django_test
-              DJANGO_SETTINGS_MODULE: config.settings.test_settings
 
             run: |
               python backend/manage.py migrate
