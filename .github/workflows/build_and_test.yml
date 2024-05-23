@@ -50,14 +50,9 @@ jobs:
           - name: Create .env from env.example
             run: |
               cp .env/env.example .env/.env.dev
-              echo "DJANGO_SETTINGS_MODULE=config.settings.development" >> .env/.env.dev
+              cat .env/.env
 
           
-          - name: Run migrations
-
-            run: |
-              python backend/manage.py migrate
-
           - name: Run celery worker
             env:
               REDIS_URL: redis://localhost:6379/0
@@ -69,7 +64,10 @@ jobs:
               REDIS_URL: redis://localhost:6379/0
             run: |
               celery -A backend.celery beat -l info
-
+          - name: Run migrations
+            run: |
+              python backend/manage.py migrate
+              
           - name: Run tests
             env:
               DATABASE_URL: postgres://django:django@localhost:5432/django_test
