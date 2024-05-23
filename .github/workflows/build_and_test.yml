@@ -51,12 +51,6 @@ jobs:
             run: |
               cp .env/env.example .env/.env.dev
 
-          - name: Load environment variables
-            run: |
-              echo "Loading environment variables"
-              set -o allexport
-              source .env/.env.dev
-              set +o allexport
           
           - name: Run migrations
             env:
