@@ -41,7 +41,7 @@ flake8==7.0.0
 flower==2.0.1
 gevent==24.2.1
 greenlet==3.0.3
-gunicorn==21.2.0
+gunicorn==22.0.0
 humanize==4.9.0
 identify==2.5.34
 idna==3.6
