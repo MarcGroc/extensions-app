@@ -16,5 +16,3 @@ router.register(r"coming-soon", ComingSoonViewSet, basename="coming-soon")
 
 app_name = "api"
 urlpatterns = router.urls
-
-# TODO: For early stage of development it stays as it is, not sure if i want to keep it in that way.

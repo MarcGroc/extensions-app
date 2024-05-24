@@ -3,15 +3,15 @@
         <div class="container-fluid container-fluid--cp-150">
             <nav class="navbar navbar-expand-lg" id="navbar-example2">
                 <router-link to="/">
-                    <img src="../assets/img/logo/djavue_logo.jpg" class="resaized" alt="logo">
+                    <img src="../assets/img/logo/djavue_logo.jpg" class="resaized d-none d-lg-block" alt="logo">
                 </router-link>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="header-config-wrapper btn-group">
-                    <router-link to="/login" class="ht-btn ht-btn--outline hire-btn d-none d-xl-block loginbtn">{{ text.login }}</router-link>
-                    <router-link to="/register" class="ht-btn ht-btn--outline hire-btn d-none d-xl-block registerbtn">{{ text.register }}</router-link>
+                    <router-link to="/login" class="ht-btn ht-btn--outline hire-btn d-sm-block loginbtn">{{ text.login }}</router-link>
+                    <router-link to="/register" class="ht-btn ht-btn--outline hire-btn d-sm-block registerbtn">{{ text.register }}</router-link>
                 </div>
 
                 <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">

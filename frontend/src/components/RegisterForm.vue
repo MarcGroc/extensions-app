@@ -14,14 +14,14 @@
                        <div class="col-md-6 text-center text-md-end">
                             <ul class="list ht-social-networks flat-round ">
                                 <li class="item">
-                                    <a href="https://localhost:8000/accounts/facebook/login" target="_blank" class="social-link"> <i class="fab fa-facebook social-link-icon"></i> </a>
+                                    <a href="http://localhost:8000/accounts/facebook/login" target="_blank" class="social-link"> <i class="fab fa-facebook social-link-icon"></i> </a>
                                 </li>
                                 <li class="item">
-                                    <a href="https://localhost:8000/accounts/google/login" target="_blank" class="social-link"> <i class="fab fa-google social-link-icon"></i> </a>
+                                    <a href="http://localhost:8000/accounts/google/login" target="_blank" class="social-link"> <i class="fab fa-google social-link-icon"></i> </a>
                                 </li>
-                                <li class="item">
-                                    <a href="https://localhost:8000/accounts/instagram/login" target="_blank" class="social-link"> <i class="fab fa-instagram social-link-icon"></i> </a>
-                                </li>
+<!--                                <li class="item">-->
+<!--                                    <a href="https://localhost:8000/accounts/instagram/login" target="_blank" class="social-link"> <i class="fab fa-instagram social-link-icon"></i> </a>-->
+<!--                                </li>-->
                             </ul>
                         </div>
                     </div>

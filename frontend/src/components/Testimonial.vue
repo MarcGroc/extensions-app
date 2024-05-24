@@ -7,12 +7,12 @@
                         <swiper
                             :speed="800"
                             :loop="true"
-                            :slidesPerView="3"
+                            :slidesPerView="2"
                             :spaceBetween="30"
                             :pagination="swiperOptions.pagination"
                             :breakpoints="swiperOptions.breakpoints"
                         >
-                            <swiper-slide class="testimonial-slider__single wow move-up">
+                            <swiper-slide class="testimonial-slider__three wow move-up">
                                 <div class="testimonial-slider__media" >
                                     <img src="../assets/img/avatar/avatar-01-120x120.png"  class="img-fluid" alt="">
                                 </div>
@@ -21,7 +21,7 @@
                                     <h6 class="name">{{ text.review1Name }}</h6>
                                 </div>
                             </swiper-slide>
-                            <swiper-slide class="testimonial-slider__single wow move-up">
+                            <swiper-slide class="testimonial-slider__three wow move-up">
                                 <div class="testimonial-slider__media">
                                     <img src="../assets/img/avatar/avatar-02-120x120.png" class="img-fluid" alt="">
                                 </div>
@@ -30,7 +30,7 @@
                                     <h6 class="name">{{text.review2Name}}</h6>
                                 </div>
                             </swiper-slide>
-                            <swiper-slide class="testimonial-slider__single wow move-up">
+                            <swiper-slide class="testimonial-slider__three wow move-up">
                                 <div class="testimonial-slider__media">
                                     <img src="../assets/img/avatar/avatar-03-120x120.png" class="img-fluid" alt="">
                                 </div>
@@ -39,6 +39,15 @@
                                     <h6 class="name">{{text.review3Name}}</h6>
                                 </div>
                             </swiper-slide>
+                            <swiper-slide class="testimonial-slider__three wow move-up">
+                                  <div class="testimonial-slider__media" >
+                                      <img src="../assets/img/avatar/avatar-07-120x120.png"  class="img-fluid" alt="">
+                                  </div>
+                                  <div class="testimonial-slider__text">{{text.review4Text}}</div>
+                                  <div class="testimonial-slider__author">
+                                      <h6 class="name">{{ text.review4Name }}</h6>
+                                  </div>
+                              </swiper-slide>
                         </swiper>
                     </div>
                 </div>

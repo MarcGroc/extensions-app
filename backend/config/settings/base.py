@@ -44,9 +44,14 @@ THIRD_PARTY_APPS = [
     "rest_framework.authtoken",
     "allauth",
     "allauth.account",
-    "allauth.socialaccount",  # noqa
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
+    "allauth.socialaccount.providers.facebook",
+    "allauth.socialaccount.providers.instagram",
+    "allauth.socialaccount.providers.twitter",
+    "allauth.socialaccount.providers.github",
     "django_celery_beat",
-    "corsheaders",  # noqa
+    "corsheaders",
     "drf_spectacular",
     "axes",
     "loguru",
@@ -77,8 +82,10 @@ AUTHENTICATION_BACKENDS = [
 
 # Can be set only once during first migration
 AUTH_USER_MODEL = "users.User"
-LOGIN_REDIRECT_URL = "users:redirect"
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
 LOGIN_URL = "/accounts/login/"
+LOGOUT_URL = "/accounts/logout/"
 
 # Password validation, prevents users from using "weak" passwords
 AUTH_PASSWORD_VALIDATORS = [
@@ -191,7 +198,35 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_ALLOW_REGISTRATION = env.bool("ALLOW_REGISTRATION", True)
 ACCOUNT_USERNAME_MIN_LENGTH = 3
-
+# SOCIALACCOUNT_PROVIDERS = {
+#     "github": {
+#         # For each provider, you can choose whether or not the
+#         # email address(es) retrieved from the provider are to be
+#         # interpreted as verified.
+#         "VERIFIED_EMAIL": True
+#     },
+#     "google": {
+#         # For each OAuth based provider, either add a ``SocialApp``
+#         # (``socialaccount`` app) containing the required client
+#         # credentials, or list them here:
+#         "APPS": [
+#             {
+#                 "client_id": env("GOOGLE_OAUTH2_CLIENT_ID"),
+#                 "secret": env("GOOGLE_OAUTH2_CLIENT_SECRET"),
+#                 "key": ""
+#             },
+#         ],
+#         # These are provider-specific settings that can only be
+#         # listed here:
+#         "SCOPE": [
+#             "profile",
+#             "email",
+#         ],
+#         "AUTH_PARAMS": {
+#             "access_type": "online",
+#         },
+#     }
+# }
 # DRF SETTINGS
 
 REST_FRAMEWORK = {

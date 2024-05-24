@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set fileformat=unix
+
+
 python3 manage.py migrate
 python3 manage.py makemigrations
 python3 manage.py check_db
