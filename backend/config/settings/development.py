@@ -29,9 +29,7 @@ DATABASES = {
         "PORT": env("PORT"),
     }
 }
-# Connection pool settings
-CONNECTION_ATTEMPTS = 5
-DELAY_BETWEEN_ATTEMPTS = 5
+
 
 # CACHES SETTINGS
 CACHES = {

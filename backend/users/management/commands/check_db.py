@@ -1,10 +1,11 @@
 import time
 
-from config.settings.development import CONNECTION_ATTEMPTS, DELAY_BETWEEN_ATTEMPTS
 from django.core.management.base import BaseCommand
 from django.db import connection
 from django.db.utils import OperationalError
 from loguru import logger
+
+from config.settings.base import CONNECTION_ATTEMPTS, DELAY_BETWEEN_ATTEMPTS
 
 
 class Command(BaseCommand):

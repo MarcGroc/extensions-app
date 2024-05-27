@@ -38,6 +38,7 @@ DJANGO_APPS = [
 PROJECT_APPS = [
     "users",
     "contact",
+    "payment",
 ]
 THIRD_PARTY_APPS = [
     "rest_framework",
@@ -63,6 +64,9 @@ THIRD_PARTY_APPS = [
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
 
 # DATABASE SETTINGS
+# Connection pool settings
+CONNECTION_ATTEMPTS = 5
+DELAY_BETWEEN_ATTEMPTS = 5
 
 # DEFAULT AUTO FIELD used for models without primary key, if switched it will update primary keys!
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
@@ -286,3 +290,7 @@ AXES_FAILURE_LIMIT = 3  # number of failed logins, change if needed
 AXES_COOLOFF_TIME = 0.1
 AXES_ENABLE_ADMIN = True
 AXES_VERBOSE = True
+
+# STRIPE
+STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
+STRIPE_PUBLISHABLE_KEY = env("STRIPE_PUBLISHABLE_KEY")
