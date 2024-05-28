@@ -19,6 +19,17 @@ ADMINS = [
 MANAGERS = ADMINS
 
 # DATABASES SETTINGS
+DATABASES = {
+    "default": {
+        "ENGINE": "django_prometheus.db.backends.postgresql",
+        "NAME": env("NAME"),
+        "USER": env("USER"),
+        "PASSWORD": env("PASSWORD"),
+        "HOST": env("HOST"),
+        "PORT": env("PORT"),
+    }
+}
+
 
 # Connection pool settings
 CONNECTION_ATTEMPTS = 5

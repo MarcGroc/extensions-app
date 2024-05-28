@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from contact.models import Newsletter, Question
+from contact.models import NewsletterSignup, Question
 
 
 class TestQuestionModel(TestCase):
@@ -20,11 +20,11 @@ class TestQuestionModel(TestCase):
 class TestNewsletterModel(TestCase):
 
     def setUp(self):
-        self.newsletter = Newsletter.objects.create(
+        self.newsletter = NewsletterSignup.objects.create(
             name="Test",
             email="tst@test.com",
             )
 
     def test_create_newsletter(self):
         # Test if newsletter is created
-        self.assertTrue(isinstance(self.newsletter, Newsletter))
+        self.assertTrue(isinstance(self.newsletter, NewsletterSignup))

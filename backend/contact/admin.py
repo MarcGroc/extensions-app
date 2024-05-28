@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from contact.models import Newsletter, Question
+from contact.models import NewsletterSignup, Question
 
 
 @admin.register(Question)
@@ -12,7 +12,7 @@ class ContactAdmin(admin.ModelAdmin):
     actions = ["reply_to_question"]
 
 
-@admin.register(Newsletter)
+@admin.register(NewsletterSignup)
 class NewsletterAdmin(admin.ModelAdmin):
     fields = ("name", "email")
     search_fields = ["name", "email"]

@@ -34,7 +34,4 @@ docker_down_volume:
 
 
 #TODO: Nginx docker
-#TODO: payment processor
-#TODO: ansible terraform
-#TODO: kubernetes
 #Todo: actions

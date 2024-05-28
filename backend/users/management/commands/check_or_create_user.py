@@ -18,7 +18,7 @@ class Command(BaseCommand):
         env.read_env(str(settings.BASE_DIR / ".env/.env.dev"))
         username = env("ADMIN_NAME", default="admin")
         email = env("ADMIN_EMAIL", default="admin@example.com")
-        password = env("ADMIN_PASSWORD", default="adminpassword")
+        password = env("ADMIN_PASSWORD", default="adminpass")
 
         User_model = get_user_model()
 

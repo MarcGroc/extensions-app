@@ -13,7 +13,6 @@ from rest_framework.authtoken.views import obtain_auth_token
 from config.settings.development import ADMIN_URL
 
 urlpatterns = [
-    path("__debug__/", include("debug_toolbar.urls")),
     path("prometheus/", include("django_prometheus.urls")),
     path("accounts/", include("allauth.urls")),
     path(ADMIN_URL, admin.site.urls),
@@ -35,3 +34,5 @@ urlpatterns += [
     ),
     path("password/reset/done/", auth_views.PasswordResetCompleteView.as_view(), name="password_reset_complete"),
 ]
+if settings.DEBUG:
+    urlpatterns += [path("__debug__/", include("debug_toolbar.urls"))]

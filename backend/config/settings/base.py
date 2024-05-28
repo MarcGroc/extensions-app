@@ -38,6 +38,7 @@ DJANGO_APPS = [
 PROJECT_APPS = [
     "users",
     "contact",
+    "payment",
 ]
 THIRD_PARTY_APPS = [
     "rest_framework",
@@ -63,6 +64,10 @@ THIRD_PARTY_APPS = [
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
 
 # DATABASE SETTINGS
+# Connection pool settings
+CONNECTION_ATTEMPTS = 5
+DELAY_BETWEEN_ATTEMPTS = 5
+
 DATABASES = {
     "default": {
         "ENGINE": "django_prometheus.db.backends.postgresql",
@@ -175,7 +180,6 @@ EMAIL_PORT = env("EMAIL_PORT")
 DEFAULT_FROM_EMAIL = "from@example.com"
 
 # LOGGING SETTINGS
-# Logging is handled by loguru backend/config/loguru_config.py
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
@@ -272,7 +276,7 @@ SPECTACULAR_SETTINGS = {
     "TITLE": f"{env('PROJECT_NAME')} API",
     "DESCRIPTION": f"Documentation of API endpoints of {env('PROJECT_NAME')}",
     "VERSION": f"{env('PROJECT_VERSION')}",
-    "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAuthenticated"],
+    "SERVE_PERMISSIONS": ["rest_framework.permissions.AllowAny"],
 }
 
 # PROMETHEUS SETTINGS
@@ -303,3 +307,7 @@ AXES_FAILURE_LIMIT = 3  # number of failed logins, change if needed
 AXES_COOLOFF_TIME = 0.1
 AXES_ENABLE_ADMIN = True
 AXES_VERBOSE = True
+
+# STRIPE
+STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
+STRIPE_PUBLISHABLE_KEY = env("STRIPE_PUBLISHABLE_KEY")

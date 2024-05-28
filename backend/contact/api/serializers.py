@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from contact.models import Newsletter, Question
+from contact.models import NewsletterSignup, Question
 
 
 class ContactSerializer(serializers.ModelSerializer):
@@ -11,5 +11,5 @@ class ContactSerializer(serializers.ModelSerializer):
 
 class ComingSoonSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Newsletter
+        model = NewsletterSignup
         fields = ["name", "email"]

@@ -4,7 +4,7 @@ from rest_framework import mixins, status, viewsets
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
-from contact.models import Newsletter, Question
+from contact.models import NewsletterSignup, Question
 
 from .serializers import ComingSoonSerializer, ContactSerializer
 
@@ -26,7 +26,7 @@ class ContactViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
 
 class ComingSoonViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     serializer_class = ComingSoonSerializer
-    queryset = Newsletter.objects.all()
+    queryset = NewsletterSignup.objects.all()
     permission_classes = [AllowAny]
 
     def create(self, request, *args, **kwargs):
