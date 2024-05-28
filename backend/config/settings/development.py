@@ -5,7 +5,7 @@ Adjust as needed.
 
 from .base import *  # noqa
 
-env.read_env(str(BASE_DIR / ".env/.env.dev"))
+env.read_env(str(BASE_DIR / ".env/dev/.env"))
 DEBUG = True
 SECRET_KEY = env("SECRET_KEY")
 ALLOWED_HOSTS = ["*"]
@@ -77,3 +77,6 @@ INSTALLED_APPS += ["django_extensions"]
 CELERY_TASK_EAGER_PROPAGATES = True
 CELERY_BROKER_URL = env("CELERY_BROKER_URL")
 CELERY_RESULT_BACKEND = env("CELERY_RESULT_BACKEND")
+
+STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
+STRIPE_PUBLISHABLE_KEY = env("STRIPE_PUBLISHABLE_KEY")

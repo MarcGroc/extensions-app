@@ -10,7 +10,7 @@ import environ
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent.parent
 env = environ.Env()
 
-env.read_env(str(BASE_DIR / ".env/.env.dev"))
+env.read_env(str(BASE_DIR / ".env/dev/.env"))
 
 # GENERAL SETTINGS
 # On local Windows must set to system timezone
@@ -142,7 +142,7 @@ MIDDLEWARE = [
 ]
 
 # STATIC
-STATIC_ROOT = str(BASE_DIR / "staticfiles")
+STATIC_ROOT = str(BASE_DIR / "static")
 STATIC_URL = "/static/"
 
 # MEDIA
@@ -174,10 +174,14 @@ TEMPLATES = [
 FIXTURE_DIRS = (str(BASE_DIR / "fixtures"),)
 
 # EMAIL SETTINGS
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-EMAIL_HOST = env("EMAIL_HOST")
-EMAIL_PORT = env("EMAIL_PORT")
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = env("EMAIL_HOST", default="mailpit")
+EMAIL_PORT = env("EMAIL_PORT", default=1025)
 DEFAULT_FROM_EMAIL = "from@example.com"
+EMAIL_HOST_USER = ""
+EMAIL_HOST_PASSWORD = ""
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = False
 
 # LOGGING SETTINGS
 LOGGING = {
@@ -199,6 +203,8 @@ LOGGING = {
 }
 
 # CELERY SETTINGS
+CELERY_BROKER_URL = env("CELERY_BROKER_URL")
+CELERY_RESULT_BACKEND = env("CELERY_RESULT_BACKEND")
 CELERY_TIMEZONE = TIME_ZONE
 CELERY_RESULT_EXTENDED = True
 # Retry if failed
@@ -255,7 +261,7 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
     ),
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),  # disabled for testing
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.AllowAny",),  # disabled for testing
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 

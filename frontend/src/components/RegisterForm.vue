@@ -102,16 +102,16 @@
               }
               try {
                 const response = await axios.post('/dj-rest-auth/registration/', formData);
-                if (response.ok) {
+                if (response.status === 201) {
                   console.log('Form submitted successfully');
                   this.$refs.form.reset();
+                  password_error.textContent = "Na podany addres email został wysłany link do aktywacji konta.";
                   this.acceptTerms = false;
                 }
               } catch (error) {
                 console.error(error);
               }
             }
-              password_error.textContent = "Na podany addres email został wysłany link do aktywacji konta.";
           }
           return true;
         }

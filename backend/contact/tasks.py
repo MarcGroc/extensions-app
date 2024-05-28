@@ -3,7 +3,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 from loguru import logger
 
-from .models import Question
+from .models import NewsletterSignup, Question
 
 email_content = {
     "intro": f"Witamy w {settings.PROJECT_NAME}!",
@@ -30,9 +30,9 @@ def send_confirmation_email(question_id: Question):
     question.save()
 
 
-# @shared_task
+@shared_task
 def reply_to_question(question: Question):
-    question = Question.objects.get(id=question.id)
+    question = Question.objects.get(id=question)
     subject = f"Odpowiedz na pytanie: {question.name}"
     message = question.answer
     from_email = settings.DEFAULT_FROM_EMAIL
@@ -44,3 +44,19 @@ def reply_to_question(question: Question):
         fail_silently=False,
     )
     logger.info(f"Reply email sent to {question.id}")
+
+
+@shared_task
+def newsletter_signup(newsletter: NewsletterSignup):
+    newsletter = NewsletterSignup.objects.get(id=newsletter)
+    subject = email_content["intro"]
+    message = f"{email_content['received']}\n{email_content['thank_you']}"
+    from_email = settings.DEFAULT_FROM_EMAIL
+    send_mail(
+        subject,
+        message,
+        from_email,
+        [newsletter.email],
+        fail_silently=False,
+    )
+    logger.info(f"Newsletter signup email sent to {newsletter.id}")

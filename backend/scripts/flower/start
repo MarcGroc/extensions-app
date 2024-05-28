@@ -1,5 +1,5 @@
 #!/bin/sh
 
-set -o errexit
-set -o nounset
+set fileformat=unix
+
 watchfiles --filter python celery.__main__.main --args "-A config.celery_app flower"

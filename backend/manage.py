@@ -8,9 +8,9 @@ import environ
 env = environ.Env()
 dev = True  # TODO change way to read .env
 if dev:
-    env.read_env(str("../.env/.env.dev"))
+    env.read_env(str("../.env/dev/.env"))
 else:
-    env.read_env(str("../.env/.env.prod"))
+    env.read_env(str("../.env/prod/.env"))
 
 
 def main():

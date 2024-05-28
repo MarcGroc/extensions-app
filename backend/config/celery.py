@@ -12,7 +12,7 @@ celery_app.autodiscover_tasks()
 
 celery_app.conf.beat_schedule = {
     # "test-task-every-30-seconds": {
-    #     "task": "users.tasks.get_users_count",
+    #     "task": "contact.tasks.test_task",
     #     "schedule": 30.0,
     # },
 }

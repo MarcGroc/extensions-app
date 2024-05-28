@@ -40,7 +40,9 @@
                 const formData = new FormData(this.$refs.form);
                 try {
                     const response = await axios.post('/coming-soon/', formData);
-                    if (response.ok) {
+                    if (response.status === 201) {
+                        this.subscribedmessage = 'Zapisano do newslettera.'
+                        this.subscribed = true;
                         console.log('Form submitted successfully');
                         this.$refs.form.reset();
                     }
@@ -48,8 +50,6 @@
                     console.error(error);
                     console.log('Form submission failed');
                 }
-                this.subscribedmessage = 'Zapisano do newslettera.'
-                this.subscribed = true;
             },
         }
     }

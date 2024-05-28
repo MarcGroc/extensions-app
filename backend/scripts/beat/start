@@ -1,8 +1,6 @@
 #!/bin/sh
 
-set -o errexit
-set -o nounset
-
+set fileformat=unix
 
 rm -f './celerybeat.pid'
 watchfiles --filter python celery.__main__.main --args '-A config.celery_app beat -l INFO'

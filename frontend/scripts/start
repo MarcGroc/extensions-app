@@ -1,3 +1,4 @@
 #!/bin/bash
 
-npm install && npm run dev -- --host
+npm install --unsafe-perm=true
+npm run dev -- --host
