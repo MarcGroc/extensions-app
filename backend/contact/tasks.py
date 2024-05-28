@@ -1,6 +1,7 @@
 from celery import shared_task
 from django.conf import settings
 from django.core.mail import send_mail
+from loguru import logger
 
 from .models import Question
 
@@ -25,6 +26,7 @@ def send_confirmation_email(question_id: Question):
         fail_silently=False,
     )
     question.confirmation_sent = True
+    logger.info(f"Confirmation email sent to {question.id}")
     question.save()
 
 
@@ -41,3 +43,4 @@ def reply_to_question(question: Question):
         [question.email],
         fail_silently=False,
     )
+    logger.info(f"Reply email sent to {question.id}")

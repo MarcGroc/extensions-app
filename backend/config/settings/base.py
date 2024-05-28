@@ -63,7 +63,24 @@ THIRD_PARTY_APPS = [
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
 
 # DATABASE SETTINGS
-
+DATABASES = {
+    "default": {
+        "ENGINE": "django_prometheus.db.backends.postgresql",
+        "NAME": env("NAME"),
+        "USER": env("USER"),
+        "PASSWORD": env("PASSWORD"),
+        "HOST": env("HOST"),
+        "PORT": env("PORT"),
+    }
+}
+# CACHE SETTINGS
+CACHES = {
+    "default": {
+        "BACKEND": "django_prometheus.cache.backends.locmem.LocMemCache",  # local memory, change to redis if needed
+        # "LOCATION": "",
+        "TIMEOUT": 60 * 5,
+    }
+}
 # DEFAULT AUTO FIELD used for models without primary key, if switched it will update primary keys!
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # MIGRATIONS
