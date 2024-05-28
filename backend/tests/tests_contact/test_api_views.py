@@ -1,7 +1,7 @@
 from rest_framework.test import APITestCase
 
 from contact.api.views import ComingSoonViewSet, ContactViewSet
-from contact.models import Newsletter, Question
+from contact.models import NewsletterSignup, Question
 
 
 class TestContactViewSet(APITestCase):
@@ -24,11 +24,11 @@ class TestComingSoonViewSet(APITestCase):
 
     @classmethod
     def setUpTestData(cls):
-        cls.newsletter = Newsletter.objects.create(
+        cls.newsletter = NewsletterSignup.objects.create(
             name="test",
             email="test@test.com",
         )
 
     def test_create_newsletter(self):
         # Test if newsletter is created
-        self.assertTrue(isinstance(self.newsletter, Newsletter))
+        self.assertTrue(isinstance(self.newsletter, NewsletterSignup))

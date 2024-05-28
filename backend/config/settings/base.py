@@ -162,7 +162,6 @@ EMAIL_PORT = env("EMAIL_PORT")
 DEFAULT_FROM_EMAIL = "from@example.com"
 
 # LOGGING SETTINGS
-# Logging is handled by loguru backend/config/loguru_config.py
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
@@ -259,7 +258,7 @@ SPECTACULAR_SETTINGS = {
     "TITLE": f"{env('PROJECT_NAME')} API",
     "DESCRIPTION": f"Documentation of API endpoints of {env('PROJECT_NAME')}",
     "VERSION": f"{env('PROJECT_VERSION')}",
-    "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAuthenticated"],
+    "SERVE_PERMISSIONS": ["rest_framework.permissions.AllowAny"],
 }
 
 # PROMETHEUS SETTINGS
