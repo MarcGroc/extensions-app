@@ -5,6 +5,7 @@ Production settings.
 from base import *  # noqa
 
 DEBUG = False
+
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 ALLOWED_HOSTS = env("ALLOWED_HOSTS")
 DATABASES = {"default": env.db("DATABASE_URL")}

@@ -1,21 +1,19 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
-import os
 import sys
 
-import environ
+from django.conf import settings
+from loguru import logger
 
-env = environ.Env()
-dev = True  # TODO change way to read .env
-if dev:
-    env.read_env(str("../.env/.env.dev"))
-else:
-    env.read_env(str("../.env/.env.prod"))
+from config.load_settings import loader_settings
 
 
 def main():
-    """Run administrative tasks."""
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", env("DJANGO_SETTINGS_MODULE"))
+    loader_settings()
+    if settings.DEBUG:
+        logger.warning("APPLICATION IN DEVELOPMENT MODE")
+    else:
+        logger.warning("APPLICATION IN PRODUCTION MODE")
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

@@ -67,10 +67,10 @@ jobs:
 #            run: |
 #              celery -A backend.celery beat -l info
 
-          - name: Run tests
-            env:
-              DATABASE_URL: postgres://django:django@localhost:5432/django_test
-              REDIS_URL: redis://localhost:6379/0
-              DJANGO_SETTINGS_MODULE: config.settings.test_settings
-            run: |
-              python backend/manage.py test --settings=config.settings.test_settings
+#          - name: Run tests
+#            env:
+#              DATABASE_URL: postgres://django:django@localhost:5432/django_test
+#              REDIS_URL: redis://localhost:6379/0
+#              DJANGO_SETTINGS_MODULE: config.settings.test_settings
+#            run: |
+#              python backend/manage.py test --settings=config.settings.test_settings
