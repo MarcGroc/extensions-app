@@ -14,7 +14,7 @@ services:
     volumes:
       - ./backend:/app
     env_file:
-      - .env/dev/.env
+      - .env
     ports:
       - '8000:8000'
     networks:
@@ -57,17 +57,17 @@ services:
     hostname: db
     restart: unless-stopped
     env_file:
-      - .env/dev/.env
+      - .env
     environment:
-      POSTGRES_DB: dev-db
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: "${NAME}"
+      POSTGRES_USER: "${USER}"
+      POSTGRES_PASSWORD: "${PASSWORD}"
     ports:
       - '5432:5432'
     volumes:
       - dev-db:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: ["CMD-SHELL", "pg_isready -U ${USER}"]
       interval: 10s
       timeout: 5s
       retries: 5

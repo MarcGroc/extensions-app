@@ -22,22 +22,24 @@ class InterceptHandler(logging.Handler):
         logger.opt(depth=depth, exception=record.exc_info).log(level, record.getMessage())
 
 
-logging.basicConfig(handlers=[InterceptHandler()], level=0)
+def configure_logger():
+    logging.basicConfig(handlers=[InterceptHandler()], level=0)
+    logger.remove()  # Usunięcie wszystkich domyślnych handlerów
 
-# logger.add(
-#     "logs/loguru-errors.log",
-#     level="ERROR",
-#     retention="7 days",
-#     rotation="1 day",
-#     enqueue=False,
-#     backtrace=True,
-#     diagnose=True,
-#
-# )
-# logger.add(
-#     "logs/loguru-critical.log",
-#     level="CRITICAL",
-#     retention="7 days",
-#     rotation="1 day",
-#     enqueue=False,
-# )
+    logger.add(
+        "logs/loguru-errors.log",
+        level="ERROR",
+        retention="7 days",
+        rotation="1 day",
+        enqueue=True,
+    )
+    logger.add(
+        "logs/loguru-critical.log",
+        level="CRITICAL",
+        retention="7 days",
+        rotation="1 day",
+        enqueue=True,
+    )
+
+
+configure_logger()

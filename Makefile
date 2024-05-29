@@ -11,11 +11,11 @@ install_venv:
 	. ./.venv/bin/activate
 	pip install -r ./backend/requirements/requirements.txt && pip install -r ./backend/requirements/dev-requirements.txt
 
-	@if [ -f ".env/.env.dev"]; then \
-		echo ".env.dev exists; SKIP"
+	@if [ -f ".env"]; then \
+		echo ".env exists; SKIP"
 	else \
-		touch .env/env.dev
-		cp .env.example .env/dev
+		touch .env
+		cp .env.example .env
 
 install_migrations:
 	python3 manage.py makemigrations users

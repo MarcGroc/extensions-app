@@ -5,8 +5,7 @@ Adjust as needed.
 
 from .base import *  # noqa
 
-env.read_env(str(BASE_DIR / ".env/dev/.env"))
-DEBUG = True
+env.read_env(str(BASE_DIR / ".env"))
 SECRET_KEY = env("SECRET_KEY")
 ALLOWED_HOSTS = ["*"]
 
@@ -22,21 +21,24 @@ MANAGERS = ADMINS
 DATABASES = {
     "default": {
         "ENGINE": "django_prometheus.db.backends.postgresql",
-        "NAME": env("NAME"),
-        "USER": env("USER"),
-        "PASSWORD": env("PASSWORD"),
-        "HOST": env("HOST"),
-        "PORT": env("PORT"),
+        "NAME": env("DB_NAME"),
+        "USER": env("DB_USER"),
+        "PASSWORD": env("DB_PASSWORD"),
+        "HOST": env("DB_HOST"),
+        "PORT": env("DB_PORT"),
     }
 }
-
-
 # Connection pool settings
 CONNECTION_ATTEMPTS = 5
 DELAY_BETWEEN_ATTEMPTS = 5
 
 # CACHES SETTINGS
-
+CACHES = {
+    "default": {
+        "BACKEND": "django_prometheus.cache.backends.locmem.LocMemCache",  # local memory, change to redis if needed
+        "LOCATION": "",
+    }
+}
 
 # EMAIL SETTINGS
 # EMAIL_HOST = env("EMAIL_HOST")

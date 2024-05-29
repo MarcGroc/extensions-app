@@ -7,15 +7,13 @@ For more information on this file, see
 https://docs.djangoproject.com/en/5.0/howto/deployment/asgi/
 """
 
-import os
 
 from django.core.asgi import get_asgi_application
 
+from config.load_settings import loader_settings
 from config.websocket import websocket_application
 
-env = "config.settings.development"
-
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", env)
+loader_settings()
 
 django_application = get_asgi_application()
 

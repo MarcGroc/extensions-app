@@ -10,7 +10,8 @@ import environ
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent.parent
 env = environ.Env()
 
-env.read_env(str(BASE_DIR / ".env/dev/.env"))
+env.read_env(str(BASE_DIR / ".env"))
+DEBUG = env("DEBUG")
 
 # GENERAL SETTINGS
 # On local Windows must set to system timezone
@@ -184,6 +185,7 @@ EMAIL_USE_TLS = False
 EMAIL_USE_SSL = False
 
 # LOGGING SETTINGS
+# Logging is handled by loguru backend/config/loguru_config.py
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
@@ -201,6 +203,8 @@ LOGGING = {
         },
     },
 }
+# Turn off default logging to avoid duplicate messages
+LOGGING_CONFIG = None
 
 # CELERY SETTINGS
 CELERY_BROKER_URL = env("CELERY_BROKER_URL")

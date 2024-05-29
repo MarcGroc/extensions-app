@@ -1,10 +1,8 @@
-import os
-
 from celery import Celery
 
-env = "config.settings.development"
+from config.load_settings import loader_settings
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", env)
+loader_settings()
 
 celery_app = Celery("backend")
 celery_app.config_from_object("django.conf:settings", namespace="CELERY")
