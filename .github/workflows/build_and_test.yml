@@ -46,29 +46,26 @@ jobs:
               python -m pip install --upgrade pip
               pip install -r backend/requirements/requirements.txt
               pip install -r backend/requirements/dev-requirements.txt
-          
+
           - name: Create .env from env.example
             run: |
-              cp .env/env.example .env/.env.dev
-              echo "DJANGO_SETTINGS_MODULE=config.settings.development" >> .env/.env.dev
+              cp env.example .env
 
-          
           - name: Run migrations
-
             run: |
               python backend/manage.py migrate
 
-          - name: Run celery worker
-            env:
-              REDIS_URL: redis://localhost:6379/0
-            run: |
-              celery -A backend.celery worker -l info
-
-          - name: Run celery beat
-            env:
-              REDIS_URL: redis://localhost:6379/0
-            run: |
-              celery -A backend.celery beat -l info
+#          - name: Run celery worker
+#            env:
+#              REDIS_URL: redis://localhost:6379/0
+#            run: |
+#              celery -A backend.celery worker -l info
+#
+#          - name: Run celery beat
+#            env:
+#              REDIS_URL: redis://localhost:6379/0
+#            run: |
+#              celery -A backend.celery beat -l info
 
           - name: Run tests
             env:

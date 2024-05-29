@@ -14,7 +14,7 @@ services:
     volumes:
       - ./backend:/app
     env_file:
-      - .env/.env.dev
+      - .env
     ports:
       - '8000:8000'
     networks:
@@ -40,7 +40,7 @@ services:
     image: nginx
     container_name: dev-nginx
     hostname: nginx
-#    restart: unless-stopped
+    restart: unless-stopped
     ports:
       - '80:80'
       - '443:443'
@@ -57,11 +57,11 @@ services:
     hostname: db
     restart: unless-stopped
     env_file:
-      - .env/.env.dev
+      - .env
     environment:
-      POSTGRES_DB: ${NAME}
-      POSTGRES_USER: ${USER}
-      POSTGRES_PASSWORD: ${PASSWORD}
+      POSTGRES_DB: "${NAME}"
+      POSTGRES_USER: "${USER}"
+      POSTGRES_PASSWORD: "${PASSWORD}"
     ports:
       - '5432:5432'
     volumes:
