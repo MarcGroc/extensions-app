@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/5.0/howto/deployment/asgi/
 
 from django.core.asgi import get_asgi_application
 
-from config.load_settings import loader_settings
+from config.helper_functions import loader_settings
 from config.websocket import websocket_application
 
 loader_settings()

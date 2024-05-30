@@ -11,12 +11,14 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework.authtoken.views import obtain_auth_token
 
 from config.settings.development import ADMIN_URL
+from contact.views import robots_txt
 
 urlpatterns = [
     path("prometheus/", include("django_prometheus.urls")),
     path("accounts/", include("allauth.urls")),
     path(ADMIN_URL, admin.site.urls),
     path("users/", include("users.urls", namespace="users")),
+    path("robots.txt", robots_txt),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # API URLS

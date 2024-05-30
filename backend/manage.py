@@ -5,10 +5,11 @@ import sys
 from django.conf import settings
 from loguru import logger
 
-from config.load_settings import loader_settings
+from config.helper_functions import loader_settings
 
 
 def main():
+    logger.info(f"Starting {settings.PROJECT_NAME} application...")
     loader_settings()
     if settings.DEBUG:
         logger.warning("APPLICATION IN DEVELOPMENT MODE")

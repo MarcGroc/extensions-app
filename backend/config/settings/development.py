@@ -6,7 +6,7 @@ Adjust as needed.
 from .base import *  # noqa
 
 env.read_env(str(BASE_DIR / ".env"))
-SECRET_KEY = env("SECRET_KEY")
+SECRET_KEY = env("DJANGO_SECRET_KEY")
 ALLOWED_HOSTS = ["*"]
 
 # ADMIN SETTINGS

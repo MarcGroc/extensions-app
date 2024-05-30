@@ -18,7 +18,7 @@ DEBUG = env("DEBUG")
 TIME_ZONE = "UTC"
 USE_TZ = True
 PROJECT_NAME = env("PROJECT_NAME")
-
+DOMAIN = env("DOMAIN_NAME")
 # INTERNATIONALIZATION
 LANGUAGE_CODE = "en-us"
 USE_I18N = True
@@ -72,11 +72,11 @@ DELAY_BETWEEN_ATTEMPTS = 5
 DATABASES = {
     "default": {
         "ENGINE": "django_prometheus.db.backends.postgresql",
-        "NAME": env("NAME"),
-        "USER": env("USER"),
-        "PASSWORD": env("PASSWORD"),
-        "HOST": env("HOST"),
-        "PORT": env("PORT"),
+        "NAME": env("DB_NAME"),
+        "USER": env("DB_USER"),
+        "PASSWORD": env("DB_PASSWORD"),
+        "HOST": env("DB_HOST"),
+        "PORT": env("DB_PORT"),
     }
 }
 # CACHE SETTINGS

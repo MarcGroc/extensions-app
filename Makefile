@@ -31,7 +31,3 @@ docker_hardreset:
 
 docker_down_volume:
 	docker compose -f development.yml down -v --rmi all
-
-
-#TODO: Nginx docker
-#Todo: actions

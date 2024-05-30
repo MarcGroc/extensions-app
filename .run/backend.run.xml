@@ -5,9 +5,9 @@
     <option name="INTERPRETER_OPTIONS" value="" />
     <option name="PARENT_ENVS" value="true" />
     <envs>
-      <env name="DJANGO_SETTINGS_MODULE" value="config.settings.development" />
-      <env name="PYTHONUNBUFFERED" value="1" />
       <env name="Host" value="localhost" />
+      <env name="PYTHONUNBUFFERED" value="1" />
+      <env name="DJANGO_SETTINGS_MODULE" value="backend.config.settings.development" />
     </envs>
     <option name="SDK_HOME" value="" />
     <option name="SDK_NAME" value="Poetry (django_vue_template)" />
