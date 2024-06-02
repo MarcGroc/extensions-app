@@ -649,21 +649,21 @@ select {
 }
 
 /*---- banner sass start ----*/
-.banner-one-sass {
-    @media #{$laptop-device}{
-        padding-top: 120px;
-    }
-    @media #{$desktop-device}{
-        padding-top: 130px;
-    }
-    @media #{$tablet-device}{
-        padding-top: 70px;
-    }
-    @media #{$large-mobile}{
-        padding-bottom: 20px;
-    }
-
-}
+//.banner-one-sass {
+//    @media #{$laptop-device}{
+//        padding-top: 120px;
+//    }
+//    @media #{$desktop-device}{
+//        padding-top: 130px;
+//    }
+//    @media #{$tablet-device}{
+//        padding-top: 70px;
+//    }
+//    @media #{$large-mobile}{
+//        padding-bottom: 20px;
+//    }
+//
+//}
 /*---- banner sass emd ----*/
 
 .newsletter-form--one {
