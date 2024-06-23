@@ -2,7 +2,7 @@ from django.conf import settings
 from django.http import HttpResponse
 
 
-def robots_txt(request):
+def robots_txt(request) -> HttpResponse:
     lines = [
         "User-Agent: *",
         "Allow: /",

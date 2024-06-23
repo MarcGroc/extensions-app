@@ -1,8 +1,8 @@
 from celery import Celery
 
-from config.helper_functions import loader_settings
+from config.helper_functions import settings_loader
 
-loader_settings()
+settings_loader()
 
 celery_app = Celery("backend")
 celery_app.config_from_object("django.conf:settings", namespace="CELERY")

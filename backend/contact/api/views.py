@@ -14,7 +14,7 @@ class ContactViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     queryset = Question.objects.all()
     permission_classes = [AllowAny]
 
-    def create(self, request, *args, **kwargs):
+    def create(self, request, *args, **kwargs) -> Response:
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         with transaction.atomic():
@@ -29,7 +29,7 @@ class ComingSoonViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     queryset = NewsletterSignup.objects.all()
     permission_classes = [AllowAny]
 
-    def create(self, request, *args, **kwargs):
+    def create(self, request, *args, **kwargs) -> Response:
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         with transaction.atomic():

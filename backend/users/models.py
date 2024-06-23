@@ -6,10 +6,14 @@ from django_prometheus.models import ExportModelOperationsMixin
 
 
 class User(ExportModelOperationsMixin("user"), AbstractUser):
-    first_name = models.CharField(_("First Name"), max_length=50)
-    last_name = models.CharField(_("Last Name"), max_length=50)
+    first_name = models.CharField(_("First Name"), max_length=50, blank=True, null=True)
+    last_name = models.CharField(_("Last Name"), max_length=50, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True)
     stripe_customer_id = models.CharField(max_length=50, blank=True, null=True)
-    balance = models.IntegerField(default=0)
+    balance = models.DecimalField(default=0, decimal_places=2, max_digits=10)
+    tier = models.CharField(
+        choices=[("free", "free"), ("basic", "basic"), ("pro", "pro")], max_length=5, default="free"
+    )
 
     def get_absolute_url(self) -> str:
-        return reverse("users:detail", kwargs={"username": self.username})
+        return reverse("users:detail", kwargs={"pk": self.pk})

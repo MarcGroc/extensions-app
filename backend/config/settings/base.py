@@ -143,18 +143,22 @@ MIDDLEWARE = [
 ]
 
 # STATIC
-STATIC_ROOT = str(BASE_DIR / "static")
+STATIC_ROOT = str(BASE_DIR / "backend/static")
 STATIC_URL = "/static/"
+STATICFILES_DIRS = []
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+]
 
 # MEDIA
-MEDIA_ROOT = str(BASE_DIR / "media")
+MEDIA_ROOT = str(BASE_DIR / "backend/media")
 MEDIA_URL = "/media/"
-
 # TEMPLATES
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],
+        "DIRS": [BASE_DIR / "backend/templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -172,7 +176,7 @@ TEMPLATES = [
 ]
 
 # FIXTURES
-FIXTURE_DIRS = (str(BASE_DIR / "fixtures"),)
+FIXTURE_DIRS = (str(BASE_DIR / "backend/fixtures"),)
 
 # EMAIL SETTINGS
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
@@ -262,7 +266,7 @@ ACCOUNT_USERNAME_MIN_LENGTH = 3
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.BasicAuthentication",  # added for testing
         "rest_framework.authentication.TokenAuthentication",
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.AllowAny",),  # disabled for testing
@@ -271,16 +275,31 @@ REST_FRAMEWORK = {
 
 # REST_AUTH
 
-
 # CORS SETTINGS
 CORS_ALLOW_ALL_ORIGINS = True
-# Restricts url for api
-# CORS_URLS_REGEX = r"^/api/.*$"
-CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOW_HEADERS = ["*"]
-
-CSRF_COOKIE_HTTPONLY = True
-SESSION_COOKIE_HTTPONLY = True
+# CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://192.168.1.22:8008"]
+# CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+]
+CORS_ALLOW_METHODS = [
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]
+# CSRF_COOKIE_HTTPONLY = True
+# SESSION_COOKIE_HTTPONLY = True
 
 SPECTACULAR_SETTINGS = {
     "TITLE": f"{env('PROJECT_NAME')} API",
@@ -313,8 +332,8 @@ PROMETHEUS_EXPORT_MIGRATIONS = True
 
 # AXES SETTINGS
 AXES_ENABLED = True
-AXES_FAILURE_LIMIT = 3  # number of failed logins, change if needed
-AXES_COOLOFF_TIME = 0.1
+AXES_FAILURE_LIMIT = env.int("AXES_FAILURE_LIMIT", 5)  # number of failed logins, change if needed
+AXES_COOLOFF_TIME = 2
 AXES_ENABLE_ADMIN = True
 AXES_VERBOSE = True
 

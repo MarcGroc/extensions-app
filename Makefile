@@ -18,8 +18,8 @@ install_venv:
 		cp .env.example .env
 
 install_migrations:
-	python3 manage.py makemigrations users
-	python3 manage.py migrate
+	python3 backend/manage.py makemigrations
+	python3 backend/manage.py migrate
 
 
 @.PHONY: docker_hardreset docker_down_volume

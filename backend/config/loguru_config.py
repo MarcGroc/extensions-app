@@ -22,9 +22,9 @@ class InterceptHandler(logging.Handler):
         logger.opt(depth=depth, exception=record.exc_info).log(level, record.getMessage())
 
 
-def configure_logger():
+def configure_logger() -> None:
     logging.basicConfig(handlers=[InterceptHandler()], level=0)
-    logger.remove()  # Usunięcie wszystkich domyślnych handlerów
+    # logger.remove()  # Usunięcie wszystkich domyślnych handlerów
 
     logger.add(
         "logs/loguru-errors.log",

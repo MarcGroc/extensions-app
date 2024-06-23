@@ -2,7 +2,7 @@ import stripe
 from loguru import logger
 
 
-def handle_stripe_errors_decorator(func):
+def handle_stripe_errors_decorator(func) -> callable:
     def wrapper(*args, **kwargs):
         try:
             return func(*args, **kwargs)

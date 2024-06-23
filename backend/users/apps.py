@@ -7,7 +7,7 @@ class UsersConfig(AppConfig):
     name = "users"
     default_auto_field = "django.db.models.BigAutoField"
 
-    def ready(self):
+    def ready(self) -> None:
         import users.signals  # noqa: F401
 
         try:

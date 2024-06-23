@@ -1,10 +1,10 @@
-from django.contrib.auth import get_user_model
 from rest_framework.serializers import ModelSerializer
 
-User = get_user_model()
+from users.models import User
 
 
 class UserSerializer(ModelSerializer):
     class Meta:
         model = User
-        fields = ["username", "email"]
+        fields = ["id", "username", "first_name", "last_name", "email", "stripe_customer_id", "balance", "groups"]
+        read_only_fields = ["id", "stripe_customer_id", "balance"]

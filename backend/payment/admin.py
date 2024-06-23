@@ -16,7 +16,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ["name", "description", "active", "default_price", "created_at", "updated_at"]
 
     @handle_stripe_errors_decorator
-    def save_model(self, request, obj, form, change):
+    def save_model(self, request, obj, form, change) -> None:
         if not obj.stripe_product_id:
             stripe_product = stripe.Product.create(name=obj.name, description=obj.description, active=obj.active)
             obj.stripe_product_id = stripe_product.id
@@ -33,7 +33,7 @@ class ProductAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
     @handle_stripe_errors_decorator
-    def delete_model(self, request, obj):
+    def delete_model(self, request, obj) -> None:
         if obj.stripe_product_id:
             stripe.Product.delete(obj.stripe_product_id)
             logger.success(f"Product {obj.name} deleted with ID {obj.stripe_product_id}")
@@ -46,7 +46,7 @@ class StripePriceAdmin(admin.ModelAdmin):
     list_display = ["nickname", "currency", "unit_amount", "product", "active", "created_at", "updated_at"]
 
     @handle_stripe_errors_decorator
-    def save_model(self, request, obj, form, change):
+    def save_model(self, request, obj, form, change) -> None:
         if not obj.stripe_price_id:
             stripe_price = stripe.Price.create(
                 currency=obj.currency, unit_amount=obj.unit_amount * 100, product=obj.product.stripe_product_id
@@ -58,7 +58,7 @@ class StripePriceAdmin(admin.ModelAdmin):
             logger.success(f"Price for {obj.product.name} updated with ID {obj.stripe_price_id}")
         super().save_model(request, obj, form, change)
 
-    def delete_model(self, request, obj):
+    def delete_model(self, request, obj) -> None:
         if obj.stripe_price_id:
             stripe.Price.modify(
                 obj.stripe_price_id,
@@ -73,7 +73,7 @@ class StripePaymentLInkAdmin(admin.ModelAdmin):
     readonly_fields = ["stripe_payment_link_url", "stripe_payment_link_id", "created_at", "updated_at"]
     list_display = ["stripe_payment_link_url", "stripe_payment_link_id", "active", "created_at", "updated_at"]
 
-    def save_model(self, request, obj, form, change):
+    def save_model(self, request, obj, form, change) -> None:
         if not obj.stripe_payment_link_id:
             stripe_payment_link = stripe.PaymentLink.create(
                 line_items=[
@@ -95,7 +95,7 @@ class StripePaymentLInkAdmin(admin.ModelAdmin):
             logger.success(f"Payment link for {obj.product.name} updated with ID {obj.stripe_payment_link_id}")
         super().save_model(request, obj, form, change)
 
-    def delete_model(self, request, obj):
+    def delete_model(self, request, obj) -> None:
         if obj.stripe_payment_link_id:
             stripe.PaymentLink.modify(
                 obj.stripe_payment_link_id,

@@ -20,7 +20,7 @@ welcome_message = {
 
 
 @shared_task
-def send_welcome_email(user_id: User):
+def send_welcome_email(user_id: User) -> None:
     user = User.objects.get(id=user_id)
     send_mail(
         welcome_message["welcome"],
@@ -34,7 +34,7 @@ def send_welcome_email(user_id: User):
 
 @shared_task
 # @handle_stripe_errors_decorator
-def create_stripe_customer(user_id: User):
+def create_stripe_customer(user_id: User) -> None:
     user = User.objects.get(id=user_id)
     if not user.stripe_customer_id:
         stripe_customer = stripe.Customer.create(name=user.name, email=user.email)

@@ -10,8 +10,8 @@ https://docs.djangoproject.com/en/5.0/howto/deployment/wsgi/
 
 from django.core.wsgi import get_wsgi_application
 
-from config.helper_functions import loader_settings
+from config.helper_functions import settings_loader
 
-loader_settings()
+settings_loader()
 
 application = get_wsgi_application()

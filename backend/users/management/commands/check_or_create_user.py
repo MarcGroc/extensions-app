@@ -10,7 +10,7 @@ from loguru import logger
 class Command(BaseCommand):
     help = "Django command to check if user exists in db or create new one"
 
-    def handle(self, *args, **options):
+    def handle(self, *args, **options) -> None:
         if not settings.DEBUG:
             return
         logger.info("Checking if user exists...")
@@ -25,8 +25,8 @@ class Command(BaseCommand):
         try:
             if not User_model.objects.filter(username=username).exists():
                 User_model.objects.create_superuser(username, email, password)
-                logger.info(f"Superuser {username} created.")
+                logger.info("Superuser created.")
             else:
-                logger.info(f"Superuser {username} already exists.")
+                logger.info("Superuser already exists.")
         except (ValidationError, IntegrityError) as e:
             logger.exception(f"Error creating superuser: {e}")

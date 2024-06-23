@@ -1,10 +1,9 @@
 from django.contrib import admin
 from django.contrib.admin.views.decorators import staff_member_required
-from django.contrib.auth import admin as auth_admin, get_user_model
+from django.contrib.auth import admin as auth_admin
 
 from config.settings.development import LOGIN_URL
-
-User = get_user_model()
+from users.models import User
 
 admin.site.login = staff_member_required(admin.site.login, login_url=LOGIN_URL)
 
@@ -15,10 +14,11 @@ class UserAdmin(auth_admin.UserAdmin):
         "stripe_customer_id",
         "date_joined",
         "last_login",
+        "updated_at",
         "is_active",
         "is_staff",
         "is_superuser",
     ]
-    list_display = ["username", "balance", "is_superuser", "is_active", "date_joined", "last_login"]
+    list_display = ["username", "balance", "is_superuser", "updated_at", "is_active", "date_joined", "last_login"]
     search_fields = ["username", "email", "first_name", "last_name", "balance"]
     ordering = ["balance"]

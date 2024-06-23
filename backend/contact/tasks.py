@@ -13,7 +13,7 @@ email_content = {
 
 
 @shared_task
-def send_confirmation_email(question_id: Question):
+def send_confirmation_email(question_id: Question) -> None:
     question = Question.objects.get(id=question_id)
     subject = email_content["intro"]
     message = f"{email_content['received']}\n{email_content['thank_you']}"
@@ -31,7 +31,7 @@ def send_confirmation_email(question_id: Question):
 
 
 @shared_task
-def reply_to_question(question: Question):
+def reply_to_question(question: Question) -> None:
     question = Question.objects.get(id=question)
     subject = f"Odpowiedz na pytanie: {question.name}"
     message = question.answer
@@ -47,7 +47,7 @@ def reply_to_question(question: Question):
 
 
 @shared_task
-def newsletter_signup(newsletter: NewsletterSignup):
+def newsletter_signup(newsletter: NewsletterSignup) -> None:
     newsletter = NewsletterSignup.objects.get(id=newsletter)
     subject = email_content["intro"]
     message = f"{email_content['received']}\n{email_content['thank_you']}"

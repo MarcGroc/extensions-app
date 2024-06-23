@@ -1,13 +1,19 @@
 <template>
-    <router-view />
+  <router-view />
 </template>
 
 <script>
-    import WOW from "wow.js";
-    export default {
-        name: 'app',
-        mounted(){
-            new WOW().init();
-        }
-    }
+import { useAuthStore } from "@/store/auth";
+
+export default {
+  /**
+   * Initialize the authentication store on component mount.
+   */
+  async mounted() {
+    const authStore = useAuthStore();
+    await authStore.init();
+  },
+};
 </script>
+
+<style></style>

@@ -1,12 +1,11 @@
 #!/bin/bash
 
-set fileformat=unix
-
+#set fileformat=unix
 
 python3 manage.py migrate
 python3 manage.py makemigrations
 python3 manage.py check_db
+python3 manage.py collectstatic
 python3 manage.py check_or_create_user
-#python manage.py load_fixtures
-#python manage.py collectstatic --noinput
 gunicorn -c config/gunicorn/gunicorn_dev_config.py
+#python manage.py load_fixtures

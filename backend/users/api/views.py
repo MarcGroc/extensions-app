@@ -1,21 +1,13 @@
-from django.contrib.auth import get_user_model
-from rest_framework.permissions import AllowAny
-from rest_framework.viewsets import GenericViewSet
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
 
 from users.api.serializers import UserSerializer
 
-User = get_user_model()
 
-
-class UserViewSet(GenericViewSet):
-    """
-    Test API endpoint .
-    """
-
-    queryset = User.objects.all()  # n+1
+class UserViewSet(generics.RetrieveAPIView):
     serializer_class = UserSerializer
 
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
-    def get_queryset(self):
-        return self.queryset.filter(id=self.request.user)
+    def get_object(self):
+        return self.request.user

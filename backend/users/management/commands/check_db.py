@@ -11,7 +11,7 @@ from config.settings.base import CONNECTION_ATTEMPTS, DELAY_BETWEEN_ATTEMPTS
 class Command(BaseCommand):
     help = "Django command to check database connection"
 
-    def handle(self, *args, **options):
+    def handle(self, *args, **options) -> None:
         logger.info("Connecting to database...")
         is_db_available = False
         connection_attempt_count = 0

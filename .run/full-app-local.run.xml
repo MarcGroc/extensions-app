@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="full-app-local" type="Multirun" separateTabs="false" reuseTabsWithFailures="false" startOneByOne="true" markFailedProcess="true" hideSuccessProcess="false" delayTime="0.0">
     <runConfiguration name="backend" type="Django Server" />
-    <runConfiguration name="frontend" type="npm" />
+    <runConfiguration name="dev --host" type="npm" />
     <method v="2" />
   </configuration>
 </component>

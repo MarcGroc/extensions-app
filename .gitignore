@@ -261,3 +261,7 @@ cython_debug/
 !/env.example
 /frontend/.env
 /.env
+
+backend/media
+backend/static
+!frontend/src/lib
