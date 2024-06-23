@@ -2,7 +2,9 @@ import { defineConfig } from "vite";
 import path from "path";
 import Vue from "@vitejs/plugin-vue";
 import ViteImages from "vite-plugin-vue-images";
+import dotenv from "dotenv";
 
+dotenv.config({ path: "../.env" });
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -11,6 +13,9 @@ export default defineConfig({
       dirs: ["src/assets/images"],
     }),
   ],
+  define: {
+    "process.env": process.env,
+  },
   build: {
     chunkSizeWarningLimit: 80000,
   },
@@ -18,6 +23,7 @@ export default defineConfig({
     extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json", ".vue", ".css"],
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      "#": path.resolve(__dirname, "../"), // monorepo root
     },
   },
   server: {

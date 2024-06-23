@@ -2,7 +2,7 @@ import { useAuthStore } from "@/store/auth";
 export default function auth({ next, store }) {
   const authStore = useAuthStore();
   if (authStore.isAuthenticated) {
-    return next();
+    next();
   }
-  // return next({ name: "Login" });
+  return next({ name: "Login" });
 }

@@ -28,7 +28,7 @@
             <div
               class="text-2xl font-medium text-slate-900 dark:text-slate-200 mb-[3px]"
             >
-              {{ user?.username.toUpperCase() }}
+              {{ user?.username }}
             </div>
             <!--            <div class="text-sm font-light text-slate-600 dark:text-slate-400">-->
             <!--              Front End Developer-->
@@ -155,9 +155,9 @@
   </div>
 </template>
 <script>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import Card from "@/components/Card";
-import Icon from "@/components/Icon";
+// import Icon from "@/components/Icon";
 import { basicArea, basicAreaDark } from "@/constant/appex-chart.js";
 import { useAuthStore } from "@/store/auth.js";
 import profileImg from "@/assets/images/all-img/djavue_logo.jpg";
@@ -165,7 +165,7 @@ import { useThemeSettingsStore } from "@/store/themeSettings";
 export default {
   components: {
     Card,
-    Icon,
+    // Icon,
   },
   data() {
     /**
@@ -193,9 +193,16 @@ export default {
       if (!authStore.isAuthenticated) {
         authStore.localLogout();
         authStore.logout();
+      } else {
+        authStore.getUser();
       }
     });
-
+    watch(
+      () => authStore.user,
+      (newValue) => {
+        user.value = newValue;
+      }
+    );
     return {
       user,
       themeSettingsStore,

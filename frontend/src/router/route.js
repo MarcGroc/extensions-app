@@ -88,7 +88,7 @@ const routes = [
     redirect: "/app/home",
     component: () => import("@/Layout/index.vue"),
     meta: {
-      middleware: [guest], // Change to auth on production
+      middleware: [auth], // Change to auth on production
     },
     children: [
       {

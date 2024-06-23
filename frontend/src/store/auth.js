@@ -42,7 +42,6 @@ export const useAuthStore = defineStore("auth", {
       try {
         await axios.post("api/dj-rest-auth/logout/");
       } catch (error) {
-        console.log(error);
         localStorage.removeItem("token");
         delete axios.defaults.headers.common["Authorization"];
       } finally {

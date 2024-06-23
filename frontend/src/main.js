@@ -19,7 +19,7 @@ import router from "./router";
 import VCalendar from "v-calendar";
 import { createPinia } from "pinia";
 import "v-calendar/dist/style.css";
-import { makeServer } from "./server";
+// import { makeServer } from "./server";
 import { VueQueryPlugin } from "@tanstack/vue-query";
 // ------ Landing Page------
 import "bootstrap/dist/css/bootstrap.css";

@@ -25,25 +25,25 @@
         </button>
 
         <div class="header-config-wrapper btn-group">
+          <!--          <router-link-->
+          <!--            v-if="!authStore.isAuthenticated"-->
+          <!--            to="/login"-->
+          <!--            class="ht-btn ht-btn&#45;&#45;outline hire-btn d-sm-block loginbtn"-->
+          <!--            >{{ text.login }}-->
+          <!--          </router-link>-->
+          <!--          <router-link-->
+          <!--            v-else-->
+          <!--            to="/logout"-->
+          <!--            class="ht-btn ht-btn&#45;&#45;outline hire-btn d-sm-block loginbtn"-->
+          <!--          >-->
+          <!--            Logout-->
+          <!--          </router-link>-->
           <router-link
             v-if="!authStore.isAuthenticated"
             to="/login"
-            class="ht-btn ht-btn--outline hire-btn d-sm-block loginbtn"
-            >{{ text.login }}
-          </router-link>
-          <router-link
-            v-else
-            to="/logout"
-            class="ht-btn ht-btn--outline hire-btn d-sm-block loginbtn"
-          >
-            Logout
-          </router-link>
-          <router-link
-            v-if="!authStore.isAuthenticated"
-            to="/register"
             class="ht-btn ht-btn--outline hire-btn d-sm-block registerbtn"
           >
-            {{ text.register }}
+            {{ text.login }}
           </router-link>
           <router-link
             v-else

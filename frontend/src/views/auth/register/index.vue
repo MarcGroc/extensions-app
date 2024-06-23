@@ -5,13 +5,15 @@
         <div class="max-w-[520px] pt-20 ltr:pl-20 rtl:pr-20">
           <router-link to="/">
             <img
-              src="@/assets/images/logo/logo.svg"
+              src="@/assets/img/logo/djavue_logo.jpg"
               alt=""
+              width="100"
+              height="100"
               class="mb-10"
               v-if="!themeSettingsStore.isDark"
             />
             <img
-              src="@/assets/images/logo/logo-white.svg"
+              src="@/assets/img/logo/djavue_logo.jpg"
               alt=""
               class="mb-10"
               v-else
@@ -19,15 +21,14 @@
           </router-link>
 
           <h4>
-            Unlock your Project
-            <span class="text-slate-800 dark:text-slate-400 font-bold"
-              >performance</span
-            >
+            <span class="text-slate-800 dark:text-slate-400 font-bold">{{
+              text.title
+            }}</span>
           </h4>
         </div>
         <div class="absolute left-0 bottom-[-130px] h-full w-full z-[-1]">
           <img
-            src="@/assets/images/auth/ils1.svg"
+            src="@/assets/img/logo/djavue_logo.jpg"
             alt=""
             class="h-full w-full object-contain"
           />
@@ -47,10 +48,10 @@
               /></router-link>
             </div>
             <div class="text-center 2xl:mb-10 mb-5">
-              <h4 class="font-medium">Sign up</h4>
-              <div class="text-slate-500 dark:text-slate-400 text-base">
-                Create an account to start using Dashcode
-              </div>
+              <h4 class="font-medium">{{ text.subtitle }}</h4>
+              <!--              <div class="text-slate-500 dark:text-slate-400 text-base">-->
+              <!--                Create an account to start using Dashcode-->
+              <!--              </div>-->
             </div>
             <Signup />
             <div
@@ -59,7 +60,7 @@
               <div
                 class="absolute inline-block bg-white dark:bg-slate-800 left-1/2 top-1/2 transform -translate-x-1/2 px-4 min-w-max text-sm text-slate-500 dark:text-slate-400font-normal"
               >
-                Or continue with
+                {{ text.register_or }}
               </div>
             </div>
             <div class="max-w-[242px] mx-auto mt-8 w-full">
@@ -68,17 +69,18 @@
             <div
               class="max-w-[215px] mx-auto font-normal text-slate-500 dark:text-slate-400 2xl:mt-12 mt-6 uppercase text-sm"
             >
-              Already registered?
+              {{ text.alreadyAccount }}
               <router-link
                 to="/"
                 class="text-slate-900 dark:text-white font-medium hover:underline"
               >
-                Sign In</router-link
+                {{ text.login }}</router-link
               >
             </div>
           </div>
           <div class="auth-footer text-center">
-            Copyright 2021, Dashcode All Rights Reserved.
+            Copyright {{ new Date().getFullYear() }} &copy; ,
+            {{ brand.projectName }} All Rights Reserved.
           </div>
         </div>
       </div>
@@ -89,7 +91,8 @@
 import Signup from "../common/Signup";
 import Social from "../common/Social";
 import { useThemeSettingsStore } from "@/store/themeSettings";
-
+import textData from "@/assets/text_landing_pl.json";
+import brand from "@/assets/brand/brand";
 export default {
   setup() {
     const themeSettingsStore = useThemeSettingsStore();
@@ -98,6 +101,12 @@ export default {
   components: {
     Social,
     Signup,
+  },
+  data() {
+    return {
+      text: textData.register,
+      brand,
+    };
   },
 };
 </script>

@@ -3,16 +3,16 @@
     <Textinput
       label="Email"
       type="email"
-      placeholder="Type your email"
+      :placeholder="text.loginPlaceholder"
       name="emil"
       v-model="email"
       :error="emailError"
       classInput="h-[48px]"
     />
     <Textinput
-      label="Password"
+      :label="text.password"
       type="password"
-      placeholder="8+ characters, 1 capital letter "
+      :placeholder="text.passwordPlaceholder"
       name="password"
       v-model="password"
       :error="passwordError"
@@ -38,19 +38,19 @@
             v-if="checkbox"
           />
         </span>
-        <span class="text-slate-500 dark:text-slate-400 text-sm leading-6"
-          >Keep me signed in</span
-        >
+        <span class="text-slate-500 dark:text-slate-400 text-sm leading-6">{{
+          text.rememberMe
+        }}</span>
       </label>
       <router-link
         to="/forgot-password"
         class="text-sm text-slate-800 dark:text-slate-400 leading-6 font-medium"
-        >Forgot Password?</router-link
+        >{{ text.forgot }}</router-link
       >
     </div>
 
     <button type="submit" class="btn btn-dark block w-full text-center">
-      Sign in
+      {{ text.submit }}
     </button>
   </form>
 </template>
@@ -62,6 +62,7 @@ import { useAuthStore } from "@/store/auth.js";
 import * as yup from "yup";
 import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
+import textData from "@/assets/text_landing_pl.json";
 
 export default {
   components: {
@@ -111,6 +112,11 @@ export default {
       onSubmit,
       checkbox,
       toggleCheckbox,
+    };
+  },
+  data() {
+    return {
+      text: textData.login,
     };
   },
 };

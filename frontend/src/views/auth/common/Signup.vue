@@ -1,9 +1,9 @@
 <template>
   <form @submit.prevent="onSubmit" class="space-y-4">
     <Textinput
-      label="Full name"
+      :label="text.name"
       type="text"
-      placeholder="Full Name"
+      :placeholder="text.name"
       name="name"
       v-model="name"
       :error="nameError"
@@ -12,16 +12,16 @@
     <Textinput
       label="Email"
       type="email"
-      placeholder="Type your email"
+      :placeholder="text.email"
       name="emil"
       v-model="email"
       :error="emailError"
       classInput="h-[48px]"
     />
     <Textinput
-      label="Password"
+      :label="text.password"
       type="password"
-      placeholder="8+ characters, 1 capital letter "
+      :placeholder="text.passwordDescription"
       name="password"
       v-model="password"
       :error="passwordError"
@@ -29,9 +29,9 @@
       classInput="h-[48px]"
     />
     <Textinput
-      label="Confirm Password"
+      :label="text.confirm"
       type="password"
-      placeholder="Confirm your password"
+      :placeholder="text.confirm"
       name="confirmPassword"
       v-model="confirmPassword"
       :error="confirmPasswordError"
@@ -60,13 +60,11 @@
           v-if="checkbox"
         />
       </span>
-      <span class="text-slate-500 dark:text-slate-400 text-sm leading-6"
-        >You accept our Terms and Conditions and Privacy Policy</span
-      >
+      <span class="text-slate-500 dark:text-slate-400 text-sm leading-6">{{ text.agreement }}</span>
     </label>
 
     <button type="submit" class="btn btn-dark block w-full text-center">
-      Create an account
+      {{ text.submit }}
     </button>
   </form>
 </template>
@@ -79,6 +77,7 @@ import { inject } from "vue";
 import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
 import axios from "@/plugins/axios";
+import textData from "@/assets/text_landing_pl.json";
 export default {
   components: {
     Textinput,
@@ -86,6 +85,7 @@ export default {
   data() {
     return {
       checkbox: false,
+      text: textData.register,
     };
   },
   setup() {

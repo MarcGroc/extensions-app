@@ -93,12 +93,12 @@ export default {
   setup() {
     const authStore = useAuthStore();
     const user = ref(authStore.user);
-    // const router = useRouter();
+    const router = useRouter();
 
     onMounted(() => {
       if (!authStore.isAuthenticated) {
         console.error("User not authenticated");
-        // router.push({ name: "Login" }); // Redirect to login page if user is not authenticated, disable for dev
+        router.push({ name: "Login" }); // Redirect to login page if user is not authenticated, disable for dev
       }
     });
     return {
