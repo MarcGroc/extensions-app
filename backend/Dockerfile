@@ -20,5 +20,5 @@ RUN pip install --no-cache-dir -r requirements.txt && \
 COPY ./backend/ .
 
 RUN chmod +x /app/scripts/start
-
+RUN sed -i 's/\r$//' /app/scripts/start
 CMD ["/bin/sh", "/app/scripts/start"]

@@ -1,8 +1,31 @@
 global:
-  scrape_interval: 15s
+  scrape_interval: 15s  # Jak często Prometheus pobiera metryki
+  evaluation_interval: 15s  # Jak często Prometheus ocenia reguły
 
 scrape_configs:
-  - job_name: django
-    metrics_path: /prometheus/metrics
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'django'
     static_configs:
       - targets: ['django:8000']
+
+  - job_name: 'frontend'
+    static_configs:
+      - targets: ['frontend:80']
+
+  - job_name: 'nginx'
+    static_configs:
+      - targets: ['nginx:80']
+
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['db:5432']
+    metrics_path: /metrics
+    params:
+      format: [prometheus]
+
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['redis:6379']

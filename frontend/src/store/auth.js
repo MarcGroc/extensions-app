@@ -68,7 +68,7 @@ export const useAuthStore = defineStore("auth", {
         this.user = response.data;
         this.group = response.data.groups[0];
       } catch (error) {
-        console.log(error.status);
+        console.log(error);
         if (error.response && error.response.status === 401) {
           await this.localLogout();
           try {

@@ -4,8 +4,8 @@ services:
     build:
       context: .
       dockerfile: backend/Dockerfile
-    image: dev-django
-    container_name: dev-django-djavue
+    image: prod-django
+    container_name: prod-django-djavue
     hostname: django
     depends_on:
       - db
@@ -18,27 +18,27 @@ services:
     ports:
       - '8000:8000'
     networks:
-      - dev
+      - prod
     restart: unless-stopped
 
   frontend:
     build:
       context: .
       dockerfile: frontend/Dockerfile
-    image: dev-frontend
-    container_name: dev-frontend-djavue
+    image: prod-frontend
+    container_name: prod-frontend-djavue
     hostname: frontend
     volumes:
       - ./frontend:/app
     ports:
       - '8008:8008'
     networks:
-      - dev
+      - prod
     restart: unless-stopped
 
   nginx:
     image: nginx
-    container_name: dev-nginx-djavue
+    container_name: prod-nginx-djavue
     hostname: nginx
     restart: unless-stopped
     ports:
@@ -48,12 +48,13 @@ services:
       - django
       - frontend
     networks:
-      - dev
+      - prod
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - - ./nginx/certs:/etc/nginx/certs:ro
   db:
     image: postgres:16
-    container_name: dev-db-djavue
+    container_name: prod-db-djavue
     hostname: db
     restart: unless-stopped
     env_file:
@@ -65,18 +66,18 @@ services:
     ports:
       - '5432:5432'
     volumes:
-      - dev-db:/var/lib/postgresql/data
+      - prod-db:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${USER}"]
       interval: 10s
       timeout: 5s
       retries: 5
     networks:
-      - dev
+      - prod
 
   redis:
     image: redis:7-alpine
-    container_name: dev-redis-djavue
+    container_name: prod-redis-djavue
     hostname: redis
     restart: on-failure
     ports:
@@ -87,18 +88,18 @@ services:
       timeout: 5s
       retries: 5
     networks:
-      - dev
+      - prod
 
   mailpit:
     image: axllent/mailpit
-    container_name: dev-mailpit-djavue
+    container_name: prod-mailpit-djavue
     hostname: mailpit
     restart: on-failure
     ports:
       - '1025:1025'
       - '8025:8025'
     networks:
-      - dev
+      - prod
 
   celery-worker:
     <<: *django
@@ -136,7 +137,7 @@ services:
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     networks:
-      - dev
+      - prod
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
 
@@ -146,18 +147,14 @@ services:
     hostname: grafana
     restart: unless-stopped
     ports:
-      - '3000:3000'
+      - '4000:4000'
     networks:
-      - dev
+      - prod
     volumes:
       - ./grafana:/var/lib/grafana
-    environment:
-      - GF_SECURITY_ADMIN_USER=${GF_SECURITY_ADMIN_USER}
-      - GF_SECURITY_ADMIN_PASSWORD=${GF_SECURITY_ADMIN_PASSWORD}
 volumes:
-  dev-db:
-  grafana:
+  prod-db:
 
 networks:
-  dev:
+  prod:
     driver: bridge
