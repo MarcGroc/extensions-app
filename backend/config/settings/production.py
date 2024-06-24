@@ -4,14 +4,28 @@ Production settings.
 
 from .base import *  # noqa
 
-PROJECT_NAME = env("PROJECT_NAME")
 DEBUG = False
-
 SECRET_KEY = env("DJANGO_SECRET_KEY")
-# ALLOWED_HOSTS = env("ALLOWED_HOSTS")
 ALLOWED_HOSTS = ["*"]
-DATABASES = {"default": env.db("DATABASE_URL")}
-DATABASES["default"]["CONN_MAX_AGE"] = env.int("CONN_MAX_AGE", default=60)
+
+ADMIN_URL = env("ADMIN_URL")
+ADMINS = [
+    (env("ADMIN_NAME"), env("ADMIN_EMAIL")),
+]
+MANAGERS = ADMINS
+DATABASES = {
+    "default": {
+        "ENGINE": "django_prometheus.db.backends.postgresql",
+        "NAME": env("DB_NAME"),
+        "USER": env("DB_USER"),
+        "PASSWORD": env("DB_PASSWORD"),
+        "HOST": env("DB_HOST"),
+        "PORT": env("DB_PORT"),
+    }
+}
+# DATABASES = {"default": env.db("DATABASE_URL")}
+# logger.debug(env.db("DATABASE_URL"))
+# DATABASES["default"]["CONN_MAX_AGE"] = env.int("CONN_MAX_AGE", default=60)
 
 # CACHES
 CACHES = {
@@ -24,6 +38,65 @@ CACHES = {
         },
     }
 }
+
+# EMAIL SETTINGS
+EMAIL_BACKEND = env("EMAIL_BACKEND")
+EMAIL_HOST = env("EMAIL_HOST")
+EMAIL_PORT = env("EMAIL_PORT")
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+EMAIL_USE_TLS = env("EMAIL_USE_TLS")
+EMAIL_USE_SSL = env("EMAIL_USE_SSL")
+
+# LOGGING SETTINGS
+# Logging is handled by loguru backend/config/loguru_config.py
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "default": {
+            "level": "INFO",
+            "class": "config.loguru_config.InterceptHandler",
+        },
+    },
+    "loggers": {
+        "": {
+            "handlers": ["default"],
+            "level": "INFO",
+            "propagate": True,
+        },
+    },
+}
+
+# ALLAUTH SETTINGS
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"  # not used, not tested
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_ALLOW_REGISTRATION = env.bool("ALLOW_REGISTRATION")
+ACCOUNT_USERNAME_MIN_LENGTH = 3
+
+# DRF SETTINGS
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": ("rest_framework.authentication.TokenAuthentication",),
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),  # disabled for testing
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+SPECTACULAR_SETTINGS = {
+    "TITLE": f"{env('PROJECT_NAME')} API",
+    "DESCRIPTION": f"Documentation of API endpoints of {env('PROJECT_NAME')}",
+    "VERSION": f"{env('PROJECT_VERSION')}",
+    "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAdminUser"],
+}
+
+# CORS SETTINGS
+CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS")
+CORS_ALLOW_CREDENTIALS = env.bool("CORS_ALLOW_CREDENTIALS")
+CORS_ALLOW_HEADERS = env.list("CORS_ALLOW_HEADERS")
+CORS_ALLOW_METHODS = env.list("CORS_ALLOW_METHODS")
+
+CSRF_COOKIE_HTTPONLY = True
+SESSION_COOKIE_HTTPONLY = True
 # SECURITY
 # Protects against clickjacking
 X_FRAME_OPTIONS = "DENY"
@@ -42,12 +115,6 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
-# ADMIN
-ADMIN_URL = env("ADMIN_URL")
-ADMINS = [
-    (env("ADMIN_NAME"), env("ADMIN_EMAIL")),
-]
-MANAGERS = ADMINS
 
 # STORAGES
 # INSTALLED_APPS += ["storages"]

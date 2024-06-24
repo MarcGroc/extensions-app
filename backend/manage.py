@@ -2,15 +2,16 @@
 """Django's command-line utility for administrative tasks."""
 import sys
 
-from django.conf import settings
 from loguru import logger
 
 from config.helper_functions import settings_loader
 
 
 def main():
-    logger.info(f"Starting {settings.PROJECT_NAME} application...")
     settings_loader()
+    from django.conf import settings
+
+    logger.info(f"Starting {settings.PROJECT_NAME} application...")
     if settings.DEBUG:
         logger.warning("APPLICATION IN DEVELOPMENT MODE")
     else:

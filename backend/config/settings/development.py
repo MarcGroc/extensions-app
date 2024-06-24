@@ -32,18 +32,94 @@ DATABASES = {
 CONNECTION_ATTEMPTS = 5
 DELAY_BETWEEN_ATTEMPTS = 5
 
-# CACHES SETTINGS
+# CACHE SETTINGS
 CACHES = {
     "default": {
         "BACKEND": "django_prometheus.cache.backends.locmem.LocMemCache",  # local memory, change to redis if needed
-        "LOCATION": "",
+        # "LOCATION": "",
+        "TIMEOUT": 60 * 5,
     }
 }
 
+SECURE_SSL_REDIRECT = False
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
 # EMAIL SETTINGS
-# EMAIL_HOST = env("EMAIL_HOST")
-# EMAIL_PORT = env("EMAIL_PORT")
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = env("EMAIL_HOST", default="mailpit")
+EMAIL_PORT = env("EMAIL_PORT", default=1025)
+DEFAULT_FROM_EMAIL = "from@example.com"
+EMAIL_HOST_USER = ""
+EMAIL_HOST_PASSWORD = ""
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = False
 
+# LOGGING SETTINGS
+# Logging is handled by loguru backend/config/loguru_config.py
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "default": {
+            "level": "DEBUG",
+            "class": "config.loguru_config.InterceptHandler",
+        },
+    },
+    "loggers": {
+        "": {
+            "handlers": ["default"],
+            "level": "DEBUG",
+            "propagate": True,
+        },
+    },
+}
+# ALLAUTH SETTINGS
+ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_EMAIL_VERIFICATION = "mandatory" # not used, not tested
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_ALLOW_REGISTRATION = env.bool("ALLOW_REGISTRATION", default=True)
+ACCOUNT_USERNAME_MIN_LENGTH = 3
+
+# DRF SETTINGS
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.BasicAuthentication",  # added for testing
+        "rest_framework.authentication.TokenAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.AllowAny",),  # disabled for testing
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+# CORS SETTINGS
+CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://192.168.1.22:8008"]
+# CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+]
+CORS_ALLOW_METHODS = [
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": f"{env('PROJECT_NAME')} API",
+    "DESCRIPTION": f"Documentation of API endpoints of {env('PROJECT_NAME')}",
+    "VERSION": f"{env('PROJECT_VERSION')}",
+    "SERVE_PERMISSIONS": ["rest_framework.permissions.AllowAny"],
+}
 # DEBUG TOOLBAR
 INSTALLED_APPS += ["debug_toolbar"]
 MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]

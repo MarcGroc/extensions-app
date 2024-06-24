@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import admin as auth_admin
 
-from config.settings.development import LOGIN_URL
+from config.settings.base import LOGIN_URL
 from users.models import User
 
 admin.site.login = staff_member_required(admin.site.login, login_url=LOGIN_URL)

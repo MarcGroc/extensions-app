@@ -9,4 +9,5 @@ env.read_env("../.env")
 def settings_loader() -> None:
     if env("DEBUG") == "True":
         os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.development")
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.production")
+    else:
+        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.production")

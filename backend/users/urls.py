@@ -1,11 +1,12 @@
 from django.urls import path
 
-from .api.views import UserViewSet
-from .views import RedirectView
+from users.api.views import UserViewSet
+
+# from users.views import RedirectView
 
 app_name = "users"
 urlpatterns = [
     # path("<str:username>/", UserDetailView.as_view(), name="detail"),
-    path("redirect/", RedirectView.as_view(), name="redirect"),
+    # path("redirect/", RedirectView.as_view(), name="redirect"),
     path("api/user/", UserViewSet.as_view(), name="api-user"),
 ]

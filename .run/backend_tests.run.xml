@@ -9,7 +9,7 @@
       <env name="DJANGO_SETTINGS_MODULE" value="config.settings.test_settings" />
     </envs>
     <option name="SDK_HOME" value="$USER_HOME$/AppData/Local/pypoetry/Cache/virtualenvs/django-vue-template-ewSzl05C-py3.11/Scripts/python.exe" />
-    <option name="SDK_NAME" value="Poetry (django_vue_template)" />
+    <option name="SDK_NAME" value="Poetry (django_vue_template) (2)" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/backend" />
     <option name="IS_MODULE_SDK" value="false" />
     <option name="ADD_CONTENT_ROOTS" value="true" />
