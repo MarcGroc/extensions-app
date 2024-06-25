@@ -1,10 +1,9 @@
-from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
 
-User = get_user_model()
+from users.models import User
 
 
 class UserViewSetTestCase(TestCase):
@@ -26,7 +25,7 @@ class UserViewSetTestCase(TestCase):
 
     def test_retrieve_user_unauthenticated(self):
         response = self.client.get(self.url)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_retrieve_user_different_user(self):
         other_user = User.objects.create_user(

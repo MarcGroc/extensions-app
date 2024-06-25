@@ -1,21 +1,30 @@
 """
 Test settings.
 """
+
 from .base import *  # noqa
 
-env.read_env(str(BASE_DIR / "../.env"))
+#
+# env = environ.Env()
+# env.read_env(str(BASE_DIR / "../.env"))
 SECRET_KEY = "test"
 ALLOWED_HOSTS = ["*"]
 DEBUG = True
-
+PROJECT_NAME = "testing"
+DOMAIN = "test"
+CELERY_BROKER_URL = "redis://localhost:6379"
+CELERY_RESULT_BACKEND = "redis://localhost:6379"
+STRIPE_SECRET_KEY = "jdsfj"
+STRIPE_PUBLISHABLE_KEY = "shdfhud"
+# STRIPE_WEBHOOK_SECRET = env("STRIPE_WEBHOOK_SECRET")
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": env("DB_NAME"),
-        "USER": env("DB_USER"),
-        "PASSWORD": env("DB_PASSWORD"),
-        "HOST": env("DB_HOST"),
-        "PORT": env("DB_PORT"),
+        "NAME": "test_db",
+        "USER": "test_user",
+        "PASSWORD": "test_password",
+        "HOST": "localhost",
+        "PORT": 5432,
     }
 }
 

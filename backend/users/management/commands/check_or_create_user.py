@@ -1,3 +1,5 @@
+import os
+
 import environ
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -11,6 +13,9 @@ class Command(BaseCommand):
     help = "Django command to check if user exists in db or create new one"
 
     def handle(self, *args, **options) -> None:
+        if os.getenv("GITHUB_ACTIONS") == "true":
+            logger.info("Skipping database check in GitHub Actions")
+            return
         if not settings.DEBUG:
             return
         logger.info("Checking if user exists...")

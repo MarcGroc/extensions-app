@@ -1,6 +1,6 @@
 tests:
 	echo "Running backend tests"
-	poetry run .\backend\manage.py test --settings=config.settings.test_settings
+	python backend/manage.py test
 
 .PHONY: setup install_venv install_migrations
 

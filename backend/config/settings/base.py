@@ -237,7 +237,7 @@ PROMETHEUS_EXPORT_MIGRATIONS = True
 
 # AXES SETTINGS
 AXES_ENABLED = True
-AXES_FAILURE_LIMIT = env.int("AXES_FAILURE_LIMIT", 5)  # number of failed logins, change if needed
+AXES_FAILURE_LIMIT = 6  # number of failed logins, change if needed
 AXES_COOLOFF_TIME = 2
 AXES_ENABLE_ADMIN = True
 AXES_VERBOSE = True

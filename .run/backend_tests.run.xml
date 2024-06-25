@@ -6,7 +6,6 @@
     <option name="PARENT_ENVS" value="true" />
     <envs>
       <env name="PYTHONUNBUFFERED" value="1" />
-      <env name="DJANGO_SETTINGS_MODULE" value="config.settings.test_settings" />
     </envs>
     <option name="SDK_HOME" value="$USER_HOME$/AppData/Local/pypoetry/Cache/virtualenvs/django-vue-template-ewSzl05C-py3.11/Scripts/python.exe" />
     <option name="SDK_NAME" value="Poetry (django_vue_template) (2)" />
@@ -16,7 +15,7 @@
     <option name="ADD_SOURCE_ROOTS" value="true" />
     <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
     <option name="TARGET" value="" />
-    <option name="SETTINGS_FILE" value="$PROJECT_DIR$/backend/config/settings/test_settings.py" />
+    <option name="SETTINGS_FILE" value="$PROJECT_DIR$/backend/config/settings/development.py" />
     <option name="CUSTOM_SETTINGS" value="true" />
     <option name="USE_OPTIONS" value="false" />
     <option name="OPTIONS" value="" />

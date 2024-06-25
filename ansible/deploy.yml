@@ -1,0 +1,48 @@
+---
+- hosts: webservers
+  become: true
+  tasks:
+    - name: Update and upgrade apt packages
+      apt:
+        update_cache: yes
+        upgrade: dist
+
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Install Docker Compose
+      get_url:
+        url: https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)
+        dest: /usr/local/bin/docker-compose
+        mode: '0755'
+
+    - name: Ensure the SSH directory exists
+      file:
+        path: /root/.ssh
+        state: directory
+        mode: '0700'
+
+    - name: Add SSH private key to the agent
+      copy:
+        src: path/to/secret_key
+        dest: /root/.ssh/id_ed25519
+        mode: '0600'
+
+    - name: Add GitHub to known hosts
+      shell: |
+        ssh-keyscan github.com >> /root/.ssh/known_hosts
+      args:
+        creates: /root/.ssh/known_hosts
+
+    - name: Clone application repository
+      git:
+        repo: path/to/repo
+        dest: /opt/your-app
+        version: main
+
+    - name: Start application using Docker Compose
+      shell: docker-compose -f /opt/your-app/docker-compose.yml up -d
+      args:
+        chdir: /opt/your-app/

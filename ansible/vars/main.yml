@@ -1,0 +1,10 @@
+---
+project_root: /opt/djavue
+project_repo: https://github.com/MarcGroc/django_vue_template
+project_version: main
+db_name: djavue_db
+db_user: djavue_user
+db_password: secure_password
+grafana_admin_user: admin
+grafana_admin_password: secure_grafana_password
+path_to_secret_key: /opt/djavue/.env

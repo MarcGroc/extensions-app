@@ -1,3 +1,4 @@
+import os
 import time
 
 from django.core.management.base import BaseCommand
@@ -12,6 +13,9 @@ class Command(BaseCommand):
     help = "Django command to check database connection"
 
     def handle(self, *args, **options) -> None:
+        if os.getenv("GITHUB_ACTIONS") == "true":
+            logger.info("Skipping database check in GitHub Actions")
+            return
         logger.info("Connecting to database...")
         is_db_available = False
         connection_attempt_count = 0
