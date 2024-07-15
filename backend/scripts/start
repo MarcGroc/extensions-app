@@ -1,6 +1,11 @@
 #!/bin/bash
 
-
+# Check if running inside Docker
+if [ -f /.dockerenv ]; then
+    export DB_HOST=db
+else
+    export DB_HOST=localhost
+fi
 
 python3 manage.py migrate
 python3 manage.py makemigrations

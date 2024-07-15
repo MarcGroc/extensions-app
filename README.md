@@ -1,42 +1,52 @@
-# Django/ Vue template
+# Browser Extensions Tool
 
-### Installation
+### This is a tool for finding extensions ideas, niches based on jobs postings and currently available extensions.
 
-#### Clone the repository
-```bash
-git clone https://github.com/sergey-morozov/django-vue-template.git
+#### Tech stack
+
+- Django
+- Django Rest Framework
+- Vue.js
+- Postgres
+- Redis
+- Celery
+- AWS
+- Docker
+- Docker Compose
+
+#### How it works
+
+- Upwork job postings is used as a source of data
+- Chrome Extensions store is used as a source of data
+- Extensions ideas are validated by searching the store and job postings
+- LLM models are used for analysis of the data
+
+#### How to run
+Go to backend directory
+
+``` bash
+cd backend
 ```
-#### Create virtual environment
-```bash
-python3 -m venv /venv
-source /venv/bin/activate
+Install from requirements
+
+``` bash
+poetry install
+```
+Run migrations(make sure all apps are migrated(users, contact, payment))
+
+``` bash
+poetry run manage.py makemigrations
 ```
 
-#### Install dependencies
 ``` bash
-pip install -r /requirements/requirements.txt && pip install -r /requirements/dev-requirements.txt
+poetry run python manage.py migrate users && poetry run python manage.py migrate
 ```
-#### Create env files
+Run server
+
 ``` bash
-touch .env/env.dev && touch .env/env.prod
+poetry run python manage.py runserver
 ```
 
-#### Copy content from .env.example to .env.dev
-``` bash
-cp .env.example .env/dev
-```
-#### Replace default values in .env.dev
-#### Change directory to backend
-``` bash
-cd django-vue-template/backend
-```
-
-#### Make migrations for users app
-``` bash
-python manage.py makemigrations users
-```
-
-#### Migrate to db
-``` bash
-python manage.py migrate
-```
+Backend is running on http://localhost:8000
+Admin panel is running on http://localhost:8000/ADMIN_URL (ADMIN_URL is set in .env file)
+Swagger docs is running on http://localhost:8000/api/docs

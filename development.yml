@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: backend/Dockerfile
     image: dev-django
-    container_name: dev-django-djavue
+    container_name: dev-django-${PROJECT_NAME}
     hostname: django
     depends_on:
       - db
@@ -26,7 +26,7 @@ services:
       context: .
       dockerfile: frontend/Dockerfile
     image: dev-frontend
-    container_name: dev-frontend-djavue
+    container_name: dev-frontend-${PROJECT_NAME}
     hostname: frontend
     volumes:
       - ./frontend:/app
@@ -38,7 +38,7 @@ services:
 
   nginx:
     image: nginx
-    container_name: dev-nginx-djavue
+    container_name: dev-nginx-${PROJECT_NAME}
     hostname: nginx
     restart: unless-stopped
     ports:
@@ -53,21 +53,21 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
   db:
     image: postgres:16
-    container_name: dev-db-djavue
+    container_name: dev-db-${PROJECT_NAME}
     hostname: db
     restart: unless-stopped
     env_file:
       - .env
     environment:
-      POSTGRES_DB: ${NAME}
-      POSTGRES_USER: ${USER}
-      POSTGRES_PASSWORD: ${PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
       - '5432:5432'
     volumes:
       - dev-db:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${USER}"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -76,7 +76,7 @@ services:
 
   redis:
     image: redis:7-alpine
-    container_name: dev-redis-djavue
+    container_name: dev-redis-${PROJECT_NAME}
     hostname: redis
     restart: on-failure
     ports:
@@ -91,7 +91,7 @@ services:
 
   mailpit:
     image: axllent/mailpit
-    container_name: dev-mailpit-djavue
+    container_name: dev-mailpit-${PROJECT_NAME}
     hostname: mailpit
     restart: on-failure
     ports:
@@ -102,7 +102,7 @@ services:
 
   celery-worker:
     <<: *django
-    container_name: celery-worker-djavue
+    container_name: celery-worker-${PROJECT_NAME}
     hostname: celery-worker
     ports: []
     depends_on:
@@ -111,7 +111,7 @@ services:
 
   celery-beat:
     <<: *django
-    container_name: celery-beat-djavue
+    container_name: celery-beat-${PROJECT_NAME}
     hostname: celery-beat
     depends_on:
       - django
@@ -120,7 +120,7 @@ services:
 
   flower:
     <<: *django
-    container_name: flower-djavue
+    container_name: flower-${PROJECT_NAME}
     hostname: flower
     ports:
       - '5555:5555'
@@ -128,7 +128,7 @@ services:
 
   prometheus:
     image: prom/prometheus:v2.51.2
-    container_name: prometheus-djavue
+    container_name: prometheus-${PROJECT_NAME}
     hostname: prometheus
     restart: unless-stopped
     ports:
@@ -142,7 +142,7 @@ services:
 
   grafana:
     image: grafana/grafana:10.4.2
-    container_name: grafana-djavue
+    container_name: grafana-${PROJECT_NAME}
     hostname: grafana
     restart: unless-stopped
     ports:

@@ -1,9 +1,9 @@
 [tool.poetry]
-name = "django-vue-template"
+name = "extensions-app"
 version = "0.1.0"
 description = ""
 authors = ["MarcGroc <marcgroc12@gmail.com>"]
-readme = "README.md"
+readme = "./README.md"
 packages = [{include = "backend"}]
 [build-system]
 requires = ["poetry-core"]
