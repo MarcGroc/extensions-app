@@ -41,6 +41,7 @@ PROJECT_APPS = [
     "users",
     "contact",
     "payment",
+    "scraper",
 ]
 THIRD_PARTY_APPS = [
     "rest_framework",

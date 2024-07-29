@@ -7,7 +7,7 @@ from django.db.utils import OperationalError
 from loguru import logger
 
 from config.settings.base import CONNECTION_ATTEMPTS, DELAY_BETWEEN_ATTEMPTS
-
+from config.settings.development import DATABASES
 
 class Command(BaseCommand):
     help = "Django command to check database connection"
@@ -29,7 +29,7 @@ class Command(BaseCommand):
                 connection_attempt_count += 1
 
         if is_db_available:
-            logger.success("Database available, and connection is established!")
+            logger.success(f"Database {DATABASES['default']['NAME']} available, and connection is established!")
         else:
             logger.critical(
                 f"After {CONNECTION_ATTEMPTS} tries, database is still unavailable."
