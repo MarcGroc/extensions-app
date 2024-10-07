@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+    <div class="card-deck">
+        <div class="row">
+            {% for event in all_extensions %}
+                {% if event.ratingvalue > 4.5 %}
+                    <p>{{ event.name|upper }} has rating over 4.5 </p>
+                {% elif event.ratingvalue > 4 and event.ratingvalue < 4.5 %}
+                    <p>{{ event.name }} has rating over 4</p>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+{% endblock %}

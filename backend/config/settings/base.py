@@ -141,6 +141,14 @@ MEDIA_URL = "/media/"
 # TEMPLATES
 TEMPLATES = [
     {
+        "BACKEND": "django.template.backends.jinja2.Jinja2",
+        "DIRS": [BASE_DIR / "backend/templates"],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "environment": "backend.config.jinja2-config.environment",
+        },
+    },
+    {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [BASE_DIR / "backend/templates"],
         "APP_DIRS": True,
@@ -181,7 +189,6 @@ CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 # Enable worker send task events to monitoring
 CELERY_WORKER_SEND_TASK_EVENTS = True
 CELERY_TASK_SEND_SENT_EVENT = True
-
 
 # SOCIALACCOUNT_PROVIDERS = {
 #     "github": {
@@ -247,3 +254,6 @@ AXES_VERBOSE = True
 STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
 STRIPE_PUBLISHABLE_KEY = env("STRIPE_PUBLISHABLE_KEY")
 # STRIPE_WEBHOOK_SECRET = env("STRIPE_WEBHOOK_SECRET")
+
+# OPENAI
+OPENAI_API_KEY = env("OPENAI_API_KEY")
