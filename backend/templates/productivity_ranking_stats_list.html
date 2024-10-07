@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{#{% load social_share %}#}
+{% block content %}
+    <div class="container">
+    <div class="card-deck">
+        <div class="row">
+            {% for event in productivity_ranking_stats %}
+                {% if event.category == 'productivity/workflow' %}
+                    <div class="col-lg-3 py-3">
+                    <p>{{ event.name }} {{ event.ratingvalue | round(2) }}</p>
+{#                    <div class="card card-custom bg-white border-white border-0">#}
+{#                        <p>{{ event.title }}</p>#}
+{#                        <div class="card-custom-img"#}
+{#                             style="background-image: url(http://res.cloudinary.com/d3/image/upload/c_scale,q_auto:good,w_1110/trianglify-v1-cs85g_cc5d2i.jpg);"></div>#}
+{#                        <div class="card-custom-avatar">#}
+{#                            <img class="img-fluid" src="https://robohash.org/{{ event.title }}" alt="Avatar"/>#}
+{#                        </div>#}
+{#                        <div class="card-body" style="overflow-y: auto">#}
+{#                            <h4 class="card-title">{{ event.category.capitalize }} Events</h4>#}
+{#                            <p class="card-text"><strong>{{ event.title }}</strong>#}
+{#                            <p>#}
+{#                            <p class="card-text">Volume {{ event.volume }}$</p>#}
+{#                            <p class="card-text">Expiry {{ event.expiration_date }}</p>#}
+{#                        </div>#}
+{#                        <div class="card-footer" style="background: inherit; border-color: inherit;">#}
+{#                            <p>{% post_to_facebook object_or_url "Share on Facebook!" %}</p>#}
+{#                            <p>{% post_to_telegram "Predict: " object_or_url %}</p>#}
+{#                            <p class="button">{% post_to_twitter "Predict: {{object.title}}" object_or_url "Post to Twitter" %}</p>#}
+{#                            <a href="{% url 'event' event.id %}" class="btn btn-primary">Predict now!</a>#}
+{#                        </div>#}
+                    </div>
+                {% endif %}
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
